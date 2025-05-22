@@ -1,0 +1,38 @@
+@use "./utils.scss" as *;
+
+.back-btn-container {
+  padding: 2rem vw(145) 7.4rem;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 3rem;
+  }
+}
+
+.news-container {
+  h1 {
+    font-weight: 400;
+    margin-block: 5rem;
+    margin-inline: 14.5rem 0;
+  }
+
+  p {
+    margin: 0 0 15rem;
+    padding: 0 vw(229);
+
+    font-size: 3rem;
+    line-height: 2;
+    letter-spacing: 0.34rem;
+    text-align: justify;
+    text-transform: uppercase;
+  }
+
+  img {
+    float: right;
+    margin: 5px vw(229) 0 3rem;
+    width: vw(605);
+    object-fit: contain;
+  }
+}

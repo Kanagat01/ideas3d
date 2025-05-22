@@ -1,0 +1,16 @@
+@use "./vars";
+@use "./base";
+@use "./header";
+@use "./footer";
+@use "./table";
+@use "./sections";
+@use "./carousel";
+@use "./news";
+@use "./about";
+@use "./catalog";
+@use "./technologies";
+@use "./model-page";
+@use "./tooltip";
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");

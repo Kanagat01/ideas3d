@@ -1,0 +1,15 @@
+$colors: (
+  "gray": #d9d9d9,
+  "nav-item-color": #78767a,
+  "label-color": #494949,
+  "dialog-bg": #f2f2f2,
+  "table-border": #a3a3a3,
+  "green": #a9ff68,
+  "red": #ff686a,
+);
+
+:root {
+  @each $name, $value in $colors {
+    --#{$name}: #{$value};
+  }
+}

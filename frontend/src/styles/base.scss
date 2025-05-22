@@ -1,0 +1,77 @@
+@use "./utils.scss" as *;
+
+* {
+  font-family: "Roboto";
+}
+
+html {
+  font-size: vw(10);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: max(14px, 2rem);
+}
+
+h1 {
+  font-size: 5.6rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+h2 {
+  font-size: 5.2rem;
+  line-height: calc(64 / 52);
+  letter-spacing: 0.062em;
+}
+
+h3 {
+  font-size: 4.8rem;
+  line-height: 3.6rem;
+  letter-spacing: 0.055rem;
+}
+
+h4 {
+  font-size: 3.2rem;
+  line-height: 2;
+  letter-spacing: 0.1em;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.gray-bg {
+  background-color: rgba(#000, 0.05);
+}
+
+.preloader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30vh calc(50% - 5rem);
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  font-size: 10rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.text-center {
+  text-align: center;
+}

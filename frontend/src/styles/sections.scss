@@ -1,0 +1,131 @@
+@use "./utils" as *;
+
+section h2 {
+  margin: 0;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.first-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: vw(1015);
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url("/assets/first-section-bg.png") center / cover;
+
+  span {
+    width: -webkit-fill-available;
+    color: #fff;
+    font-size: vw(65);
+    line-height: calc(90 / 65);
+    letter-spacing: calc(4.53 / 65) * 100px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__divider {
+    flex-shrink: 0;
+    width: 10px;
+    height: calc(617 / 1015) * 100%;
+    border-radius: 50px;
+    background: #fff;
+  }
+}
+
+.printing-construction {
+  padding: vw(146) vw(150) vw(108) vw(124);
+  text-align: center;
+  text-transform: uppercase;
+
+  .features {
+    display: grid;
+    grid-template-columns: vw(878) vw(670);
+    grid-template-rows: 1fr 1fr;
+    column-gap: vw(64);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      grid-column: 1;
+      grid-row: 1;
+    }
+    p {
+      margin: 0;
+      margin-top: vw(72);
+      font-size: 2.4rem;
+      line-height: calc(52 / 24);
+      letter-spacing: 0.45rem;
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .advantage {
+      display: flex;
+      align-items: center;
+      height: min-content;
+      gap: 4rem;
+      grid-column: 2;
+
+      &:first-of-type {
+        margin-block: vw(105) vw(222);
+        grid-row: 1;
+      }
+      &:nth-of-type(2) {
+        grid-row: 2;
+      }
+
+      img {
+        flex-shrink: 0;
+        width: 14.4rem;
+        height: 14.4rem;
+        object-fit: contain;
+      }
+      span {
+        font-size: 3.5rem;
+        line-height: calc(5.3 / 3.6);
+        letter-spacing: 0.45rem;
+      }
+    }
+  }
+}
+
+.news {
+  padding-block: vw(71) vw(123);
+
+  h2 {
+    margin-bottom: 10rem;
+  }
+}
+
+.partners {
+  padding: vw(86) vw(197) vw(283);
+
+  h2 {
+    margin-bottom: vw(233);
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 2.3rem;
+
+    img {
+      width: vw(800);
+      object-fit: contain;
+    }
+
+    p {
+      flex-shrink: 0;
+      margin: 0;
+      width: vw(700);
+      font-size: 2.4rem;
+      line-height: 6.4rem;
+      letter-spacing: 0.032rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  }
+}

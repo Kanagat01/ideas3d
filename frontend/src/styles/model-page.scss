@@ -1,0 +1,146 @@
+@use "utils" as *;
+
+.model-page {
+  table.model-table {
+    &:nth-child(2) {
+      margin-bottom: vw(80);
+      border-top: none;
+    }
+    border: 1px solid var(--table-border);
+    line-height: 1.44rem;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+
+    .col-wide {
+      width: 25%;
+    }
+
+    .col-narrow {
+      width: 8.333%;
+    }
+    tr {
+      border-bottom: none;
+    }
+    th,
+    td {
+      padding: 2.4rem;
+    }
+    th {
+      font-size: 1.2rem;
+      color: var(--nav-item-color);
+      font-family: "Roboto Mono";
+      padding-bottom: 0.3rem;
+    }
+    td {
+      font-size: 1.4rem;
+      color: rgb(15, 14, 15);
+      padding-top: 0.3rem;
+    }
+  }
+
+  h4,
+  .gray-bg,
+  .floor-scheme,
+  .floors-info {
+    padding-inline: vw(145) vw(150);
+  }
+
+  table:not(.model-table) {
+    margin: 0 vw(150) 5rem vw(145);
+
+    tr:first-child {
+      border-top: 1px solid var(--table-border);
+    }
+  }
+
+  .gray-bg {
+    padding-block: 0 vw(80);
+    h4 {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  h4 {
+    font-weight: 400;
+    line-height: calc(25 / 32);
+    letter-spacing: calc((1.2 / 32) * 1px);
+    text-transform: uppercase;
+
+    &.photos {
+      margin: vw(80) 0;
+    }
+    &.floors-scheme {
+      margin: vw(154) 0 vw(57);
+    }
+  }
+
+  .description {
+    margin-top: 3.2rem;
+    margin-inline-start: 11rem;
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+    letter-spacing: calc((1.2 / 15) * 1px);
+    text-transform: uppercase;
+  }
+
+  .floor-scheme {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      height: vw(600);
+      object-fit: contain;
+      margin-bottom: 6.4rem;
+    }
+    .floor-switcher {
+      position: absolute;
+      top: 0;
+      right: vw(150);
+      display: inline-flex;
+      border: 1px solid #000;
+      border-radius: 8px;
+      overflow: hidden;
+
+      input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+
+        &:checked + label {
+          background: #000;
+          color: #fff;
+        }
+      }
+
+      label {
+        padding: 1.25rem 2rem;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+        border: 1px solid transparent;
+        border-radius: 6px;
+
+        color: var(--nav-item-color);
+        background: #fff;
+        transition: color 0.2s, background 0.2s;
+      }
+    }
+  }
+
+  .floors-info {
+    display: flex;
+    align-items: center;
+    color: rgb(46, 46, 46);
+    font-size: 1.6rem;
+    line-height: 1.7rem;
+    text-transform: uppercase;
+    margin-bottom: 1.75rem;
+
+    img {
+      margin-inline: 3rem 0.75rem;
+    }
+  }
+}

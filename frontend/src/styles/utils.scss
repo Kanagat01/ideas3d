@@ -1,0 +1,15 @@
+@function vw($px) {
+  @return calc(#{$px} / 1920 * 100vw);
+}
+
+@mixin mediaMaxW($width) {
+  @media only screen and (max-width: $width) {
+    @content;
+  }
+}
+
+@mixin mediaMaxH($height) {
+  @media only screen and (max-height: $height) {
+    @content;
+  }
+}

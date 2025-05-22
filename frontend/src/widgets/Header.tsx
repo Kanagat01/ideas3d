@@ -1,0 +1,30 @@
+import { Link, NavLink } from "react-router-dom";
+import Routes from "~/shared/routes";
+
+export function Header() {
+  return (
+    <header className="header">
+      <Link className="header__logo" to={Routes.HOME}>
+        <img src="/assets/logo.png" alt="logo" />
+      </Link>
+      <nav className="header__navigation">
+        <ul>
+          {[
+            ["Главная", Routes.HOME],
+            ["3D каталог", Routes.CATALOG_3D],
+            ["Технология", Routes.TECHNOLOGIES],
+            ["О нас", Routes.ABOUT],
+            ["Помощь и поддержка", "#"],
+          ].map(([name, link], key) => (
+            <li key={key}>
+              <NavLink to={link}>{name}</NavLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <NavLink to={"#"} className="header__support">
+        Помощь и поддержка
+      </NavLink>
+    </header>
+  );
+}

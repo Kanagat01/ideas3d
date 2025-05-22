@@ -1,0 +1,132 @@
+@use "./utils.scss" as *;
+
+.carousel {
+  display: flex;
+  align-items: center;
+
+  h4 {
+    margin: 4.2rem 0;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .next-btn,
+  .prev-btn {
+    padding: 0;
+    margin-block: 0;
+    background: none;
+    border-color: transparent;
+    font-size: 8.1rem;
+  }
+
+  .next-btn {
+    margin-inline: 7.6rem 7.9rem;
+  }
+
+  .prev-btn {
+    margin-inline: 7.9rem 7.6rem;
+  }
+
+  &__items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: vw(150);
+    overflow: hidden;
+  }
+  &__card {
+    text-align: center;
+    color: #000;
+    background: #fff;
+    padding: 2.3rem 2.8rem;
+    border-radius: 3.75rem;
+    box-shadow: 0px 0.4rem 5rem 0px rgba(#000, 0.07);
+
+    animation-duration: 0.3s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+
+    &.move-left {
+      animation-name: moveLeft;
+    }
+    &.move-right {
+      animation-name: moveRight;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    img {
+      width: 28rem;
+      height: 28rem;
+      border-radius: 1.88rem;
+      object-fit: cover;
+    }
+  }
+
+  &--only-img {
+    .carousel__items {
+      gap: vw(70);
+    }
+
+    .carousel__card {
+      padding: 0;
+
+      img {
+        width: vw(420);
+        height: vw(500);
+      }
+      &.move-left {
+        animation-name: moveLeft2;
+      }
+      &.move-right {
+        animation-name: moveRight2;
+      }
+    }
+
+    .next-btn {
+      margin-left: 2.65rem;
+    }
+
+    .prev-btn {
+      margin-right: 2.65rem;
+    }
+  }
+}
+
+@keyframes moveLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc((100% + vw(150)) * -1));
+  }
+}
+
+@keyframes moveRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100% + vw(150)));
+  }
+}
+
+@keyframes moveLeft2 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc((100% + vw(70)) * -1));
+  }
+}
+
+@keyframes moveRight2 {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100% + vw(70)));
+  }
+}

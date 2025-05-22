@@ -1,0 +1,24 @@
+table {
+  border-collapse: collapse;
+  width: -webkit-fill-available;
+  table-layout: fixed;
+  color: var(--nav-item-color);
+  font-size: 1.6rem;
+  line-height: 1.7rem;
+  letter-spacing: 0;
+  text-align: left;
+  text-transform: uppercase;
+
+  &,
+  th,
+  td {
+    border: none;
+  }
+  th,
+  td {
+    padding: 0.95rem 3rem;
+  }
+  tr {
+    border-bottom: 1px solid var(--table-border);
+  }
+}

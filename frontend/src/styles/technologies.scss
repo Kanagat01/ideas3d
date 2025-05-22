@@ -1,0 +1,110 @@
+@use "utils" as *;
+
+.technologies {
+  .gray-bg {
+    height: 11rem;
+  }
+
+  h1 {
+    margin: 0 vw(145) 11rem;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: vw(60);
+    padding: 0 vw(145) 14rem;
+    width: 100%;
+    box-sizing: border-box;
+
+    &__item {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: vw(200) vw(190);
+      min-height: 70px;
+      border-radius: 2.32rem;
+      background-size: cover;
+      background-position: center;
+      z-index: 1;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+        border-radius: inherit;
+        z-index: -1;
+      }
+
+      color: #fff;
+      font-size: 5.6rem;
+      line-height: 1;
+      letter-spacing: 0.56rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.mixtures,
+.printers {
+  $marginInline: vw(145);
+
+  h1 {
+    margin: 0 $marginInline;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 11rem;
+  }
+
+  h3 {
+    margin: 0;
+    padding: 8.2rem $marginInline 9.5rem;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .gray-bg {
+    margin-top: 25rem;
+    padding-bottom: 2.5rem;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: vw(60);
+    padding-inline: $marginInline;
+
+    img {
+      width: vw(770);
+      border-radius: 2.32rem;
+      object-fit: contain;
+      background: rgba(#000, 0.05);
+    }
+    .dark-img {
+      filter: brightness(0.6);
+    }
+
+    p {
+      margin: 0;
+      width: vw(780);
+      line-height: 3.6rem;
+      letter-spacing: 0.055rem;
+      text-transform: uppercase;
+
+      span {
+        font-size: 1.2em;
+      }
+    }
+  }
+
+  table {
+    margin-top: 5rem;
+    margin-inline: $marginInline;
+  }
+}
