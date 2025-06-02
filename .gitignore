@@ -1,6 +1,7 @@
 ## BACKEND
 .env
 venv/
+backend/media/
 
 ## FRONTEND
 # Logs
