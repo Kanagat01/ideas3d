@@ -2,19 +2,20 @@
 
 .technologies {
   .gray-bg {
-    height: 11rem;
+    height: 4em;
   }
 
   h1 {
-    margin: 0 vw(145) 11rem;
-    font-weight: 400;
+    margin: 5px vw(145) 11rem;
+    font-weight: 600;
     text-transform: uppercase;
   }
 
   &__content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: vw(60);
+    column-gap: vw(60);
+    row-gap: vw(120);
     padding: 0 vw(145) 14rem;
     width: 100%;
     box-sizing: border-box;
@@ -26,10 +27,14 @@
       position: relative;
       padding: vw(200) vw(190);
       min-height: 70px;
-      border-radius: 2.32rem;
+      border-radius: 23.2px;
       background-size: cover;
       background-position: center;
       z-index: 1;
+
+      @include mediaMaxW(767px) {
+        padding: vw(300) vw(250);
+      }
 
       &::before {
         content: "";
@@ -42,9 +47,10 @@
       }
 
       color: #fff;
-      font-size: 5.6rem;
+      font-size: 2.5em;
+      font-weight: 600;
       line-height: 1;
-      letter-spacing: 0.56rem;
+      letter-spacing: 0.55px;
       text-align: center;
       text-transform: uppercase;
     }
