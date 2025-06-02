@@ -1,12 +1,11 @@
 @use "utils" as *;
 
 .about {
-  padding: 10rem vw(160) 40rem;
+  padding: vw(100) vw(160) vw(300);
 
   h4 {
-    font-weight: 400;
-    line-height: 5.2rem;
-    letter-spacing: 0.12rem;
+    font-weight: 600;
+    letter-spacing: 1.2px;
     text-align: center;
     text-transform: uppercase;
     margin-bottom: 7rem;
@@ -25,24 +24,36 @@
     }
 
     p {
-      font-size: 2.4rem;
-      font-weight: 400;
-      line-height: 5.2rem;
-      letter-spacing: 0.12rem;
+      font-size: 1.2em;
+      font-weight: 450;
+      line-height: 2;
+      letter-spacing: 1.2px;
       text-align: justify;
       text-transform: uppercase;
+    }
+  }
+  @include mediaMaxW(768px) {
+    h4 {
+      padding: 0;
+    }
+    &__content {
+      flex-direction: column-reverse;
+
+      img {
+        width: 50%;
+      }
     }
   }
 }
 
 .contacts-block {
   width: calc(100% - vw(416));
-  margin: 0 vw(208) 4rem;
+  margin: 0 vw(208) 2em;
   background-color: var(--gray);
 
   font-family: "Roboto Mono";
-  font-size: 6rem;
-  line-height: 15rem;
-  letter-spacing: 0.35rem;
+  font-size: 2em;
+  line-height: 2.5em;
+  letter-spacing: 0.175em;
   text-transform: uppercase;
 }
