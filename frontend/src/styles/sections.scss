@@ -94,18 +94,20 @@ section h2 {
       }
     }
 
-    @include mediaMaxW(767px) {
+    @include mediaMaxW(768px) {
       grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
 
       .advantage {
         grid-column: 1;
 
         &:first-of-type {
           grid-row: 3;
+          margin-block: 30px;
         }
         &:nth-of-type(2) {
           grid-row: 4;
-          margin-bottom: 50px;
+          margin-block: 0 50px;
         }
       }
     }
@@ -116,18 +118,18 @@ section h2 {
   padding-block: vw(70) vw(120);
 
   h2 {
-    margin-bottom: 0.5em;
+    margin-block: 0.5em;
   }
 }
 
 .partners {
-  padding: vw(86) vw(197) vw(283);
+  padding: vw(85) vw(200) vw(280);
 
   h2 {
-    margin-bottom: vw(233);
+    margin-bottom: vw(230);
 
     @include mediaMaxW(768px) {
-      margin-bottom: 10rem;
+      margin-block: 10rem;
     }
   }
 
