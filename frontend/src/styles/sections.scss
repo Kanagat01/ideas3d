@@ -37,15 +37,15 @@ section h2 {
 
 .printing-construction {
   background-color: #fff;
-  padding: vw(146) vw(150) vw(108) vw(124);
+  padding: vw(140) vw(150) vw(110) vw(120);
   text-align: center;
   text-transform: uppercase;
 
   .features {
     display: grid;
-    grid-template-columns: vw(878) vw(670);
+    grid-template-columns: vw(880) vw(670);
     grid-template-rows: 1fr 1fr;
-    column-gap: vw(64);
+    column-gap: vw(60);
 
     img {
       width: 100%;
@@ -54,12 +54,13 @@ section h2 {
       grid-column: 1;
       grid-row: 1;
     }
+
     p {
       margin: 0;
       margin-top: vw(72);
-      font-size: 2.4rem;
+      font-size: 1.2em;
       line-height: calc(52 / 24);
-      letter-spacing: 0.45rem;
+      letter-spacing: 0.225em;
       grid-column: 1;
       grid-row: 2;
     }
@@ -68,11 +69,11 @@ section h2 {
       display: flex;
       align-items: center;
       height: min-content;
-      gap: 4rem;
+      gap: 2rem;
       grid-column: 2;
 
       &:first-of-type {
-        margin-block: vw(105) vw(222);
+        margin-block: vw(110) vw(230);
         grid-row: 1;
       }
       &:nth-of-type(2) {
@@ -81,14 +82,31 @@ section h2 {
 
       img {
         flex-shrink: 0;
-        width: 14.4rem;
-        height: 14.4rem;
+        width: 7.2em;
+        height: 7.2em;
         object-fit: contain;
       }
+
       span {
-        font-size: 3.5rem;
+        font-size: 1.75em;
         line-height: calc(5.3 / 3.6);
-        letter-spacing: 0.45rem;
+        letter-spacing: 0.225em;
+      }
+    }
+
+    @include mediaMaxW(767px) {
+      grid-template-columns: 1fr;
+
+      .advantage {
+        grid-column: 1;
+
+        &:first-of-type {
+          grid-row: 3;
+        }
+        &:nth-of-type(2) {
+          grid-row: 4;
+          margin-bottom: 50px;
+        }
       }
     }
   }
