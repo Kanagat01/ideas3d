@@ -189,11 +189,11 @@ export default function Catalog3DPage() {
   if (isLoading) return <Preloader />;
   return (
     <div className="catalog">
-      <div className="catalog-actions">
+      {/* <div className="catalog-actions">
         <button>По коллекциям</button>
         <span className="catalog-actions__divider"></span>
         <button>Все изделия</button>
-      </div>
+      </div> */}
       <button className="filter-btn" onClick={() => setShow(true)}>
         Фильтр
       </button>
@@ -205,9 +205,13 @@ export default function Catalog3DPage() {
         destroyOnHidden
         maskClosable={true}
         styles={{
-          content: { padding: "0", width: "min(90%, 335px)" },
+          content: {
+            padding: "25px 15px",
+            width: "min(90%, 380px)",
+            backgroundColor: "var(--dialog-bg)",
+            justifySelf: "center",
+          },
           body: {
-            padding: "3rem 0 2.5rem",
             background: "var(--dialog-bg)",
             border: "1px solid transparent",
             borderRadius: "3rem",

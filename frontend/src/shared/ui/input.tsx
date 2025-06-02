@@ -125,13 +125,17 @@ const selectStyles: StylesConfig<
     fontSize: "14px",
     textTransform: "uppercase",
   }),
+  placeholder: (base) => ({
+    ...base,
+    fontSize: "14px",
+  }),
   option: (base, state) => ({
     ...base,
     backgroundColor: state.isFocused
       ? "rgba(0, 0, 0, 0.1)"
       : "rgba(0, 0, 0, 0.05)",
     color: "#000",
-    fontSize: "12px",
+    fontSize: "14px",
     textTransform: "uppercase",
     cursor: "pointer",
   }),

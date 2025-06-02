@@ -34,13 +34,34 @@
     button {
       padding: 3.7rem 10px;
       color: #fff;
-      letter-spacing: 0.12rem;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       border-radius: inherit;
 
       &:nth-of-type(2) {
         text-decoration: underline;
         text-underline-offset: 5px;
+      }
+
+      @include mediaMaxW(768px) {
+        padding: 15px 10px;
+      }
+    }
+
+    @include mediaMaxW(390px) {
+      flex-direction: column;
+
+      &__divider {
+        display: none;
+      }
+
+      button {
+        padding: 10px;
+
+        &:nth-of-type(2) {
+          text-decoration: none;
+          border-top: 1px solid;
+        }
       }
     }
   }
@@ -51,14 +72,14 @@
     position: absolute;
     top: 3.5rem;
     right: vw(55);
-    padding: 1.8rem 3rem;
-    border-radius: 2.7rem;
+    padding: 0.9em 1.5em;
+    border-radius: 27px;
     backdrop-filter: blur(3.1px);
     background: rgba(#000, 0.1);
     z-index: 2;
 
     color: #fff;
-    line-height: 1.8rem;
+    line-height: 0.9em;
     text-transform: uppercase;
   }
 
@@ -67,9 +88,10 @@
     align-items: center;
     justify-content: space-between;
     width: -webkit-fill-available;
-    padding: 0 3.3rem 1.7rem 2.45rem;
+    padding: 0 vw(33) 0.85em vw(24.5);
     font-size: 20px;
-    line-height: 1.8rem;
+    font-weight: 600;
+    line-height: 1;
     text-transform: uppercase;
   }
 
@@ -87,49 +109,49 @@
   &__actions {
     display: flex;
     align-items: center;
-    gap: 3rem;
-    padding: 0 11px;
+    justify-content: space-between;
+    gap: 1em;
     margin-top: 20px;
 
     button {
-      padding: 1rem 4.2rem;
+      padding: 0.5em vw(42);
       background-color: var(--gray);
       border-radius: 10px;
       width: -webkit-fill-available;
-      font-size: 10px;
+      font-size: 1em;
       text-transform: uppercase;
     }
   }
 }
 
 .input-container {
-  padding: 6px 11px 14px;
+  padding: 0.3em 0.5em 0.7em;
 
   label {
     color: var(--label-color);
-    font-size: 12px;
+    font-size: 14px;
     text-transform: uppercase;
   }
 
   .options {
     display: flex;
     align-items: center;
-    row-gap: 6px;
-    column-gap: 2.2rem;
-    margin-top: 11px;
-    max-width: 100%;
     flex-wrap: wrap;
+    max-width: 100%;
+    margin-top: 10px;
+    row-gap: 5px;
+    column-gap: 1.1em;
 
     .checkbox {
       cursor: pointer;
-      padding: 6px;
+      padding: 5px;
       &.wide {
-        padding: 6px 16px;
+        padding: 5px 15px;
       }
 
       background-color: var(--gray);
       border-radius: 10px;
-      font-size: 10px;
+      font-size: 14px;
       text-transform: uppercase;
       white-space: nowrap;
 
@@ -150,18 +172,22 @@
 
   &__divider {
     border: 1.5px solid var(--nav-item-color);
-    width: 32px;
+    width: 30px;
   }
 
   input {
     margin: 0 2rem;
+    padding: 0.5em 1em;
     border: 1px solid var(--nav-item-color);
     border-radius: 30px;
     box-sizing: border-box;
-    padding: 1.5rem 2.5rem;
 
     &::placeholder {
       color: var(--label-color);
+    }
+
+    @include mediaMaxW(390px) {
+      margin: 0 3rem;
     }
   }
 }
