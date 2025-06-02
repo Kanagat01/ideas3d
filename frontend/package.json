@@ -25,6 +25,7 @@
     "react-select": "^5.10.1",
     "react-stl-viewer": "^2.5.0",
     "react-svg": "^16.3.0",
+    "swiper": "^11.2.8",
     "three": "^0.176.0",
     "three-stdlib": "^2.36.0"
   },
