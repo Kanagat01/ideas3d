@@ -18,13 +18,13 @@ const TermsAndInfo = ({ mode }: { mode: string }) => (
   <>
     <div className={`footer__terms footer__terms--${mode}`}>
       <Link to={"#"}>Пользовательское соглашение</Link>{" "}
-      {mode === "desktop" && "|"}{" "}
+      {mode === "desktop" && <span className="footer__terms__divider" />}
       <Link to={"#"}>Политика обработки персональных данных</Link>
     </div>
     <div className={`footer__company-info footer__company-info--${mode}`}>
-      <span>ООО “ИДЕЯ 3Д СТРОЙ”</span>
-      <span>ИНН: 4217211879</span>
-      <span>ОРГН: 1244200013243</span>
+      <div style={{ textWrap: "nowrap" }}>ООО “ИДЕЯ 3Д СТРОЙ”</div>
+      <div style={{ textWrap: "nowrap" }}>ИНН: 4217211879</div>
+      <div style={{ textWrap: "nowrap" }}>ОРГН: 1244200013243</div>
     </div>
   </>
 );

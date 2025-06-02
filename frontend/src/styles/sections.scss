@@ -35,6 +35,7 @@ section h2 {
 }
 
 .printing-construction {
+  background-color: #fff;
   padding: vw(146) vw(150) vw(108) vw(124);
   text-align: center;
   text-transform: uppercase;
@@ -105,12 +106,16 @@ section h2 {
 
   h2 {
     margin-bottom: vw(233);
+
+    @include mediaMaxW(768px) {
+      margin-bottom: 10rem;
+    }
   }
 
   &__content {
     display: flex;
     align-items: center;
-    gap: 2.3rem;
+    gap: 1.15rem;
 
     img {
       width: vw(800);
@@ -121,11 +126,23 @@ section h2 {
       flex-shrink: 0;
       margin: 0;
       width: vw(700);
-      font-size: 2.4rem;
-      line-height: 6.4rem;
-      letter-spacing: 0.032rem;
+      font-size: 1.2em;
+      line-height: 2.4em;
+      letter-spacing: 0.016em;
       text-align: center;
       text-transform: uppercase;
+    }
+
+    @include mediaMaxW(768px) {
+      flex-direction: column;
+      gap: 1.3em;
+
+      img {
+        width: vw(1200);
+      }
+      p {
+        width: vw(1600);
+      }
     }
   }
 }

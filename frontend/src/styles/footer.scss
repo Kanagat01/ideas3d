@@ -8,7 +8,6 @@
   padding: 7px 18px 0;
   font-family: "Roboto Mono";
   color: #000;
-  font-size: max(16px, 2rem);
 
   a {
     color: #000;
@@ -41,14 +40,14 @@
       flex-direction: column;
       align-items: center;
       gap: 1rem;
-      margin-left: 40px;
-      margin-bottom: 15px;
+      margin: 15px 0 15px;
     }
   }
 
   &__logo {
     width: max(70px, vw(115));
     flex-shrink: 0;
+    margin-right: 10px;
 
     img {
       width: 100%;
@@ -58,7 +57,19 @@
   }
 
   &__terms {
-    line-height: 0.8;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    gap: 1rem;
+
+    &__divider {
+      width: 1px;
+      background-color: #000;
+      align-self: stretch;
+      margin: 0 0.5rem;
+      flex-shrink: 0;
+    }
+
     &--mobile {
       display: none;
     }
@@ -74,16 +85,15 @@
         gap: 2rem;
         margin-bottom: 2rem;
         text-align: center;
-        line-height: 1;
       }
     }
   }
 
   &__company-info {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     justify-content: center;
-    width: 265px;
+    width: fit-content;
     text-align: center;
     line-height: 1.3;
 
@@ -95,6 +105,7 @@
       display: none;
       &--mobile {
         display: flex;
+        flex-direction: row;
         flex-wrap: wrap;
         width: 100%;
         gap: 2rem;

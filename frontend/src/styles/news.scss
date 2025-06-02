@@ -1,13 +1,13 @@
 @use "./utils.scss" as *;
 
 .back-btn-container {
-  padding: 2rem vw(145) 7.4rem;
+  padding: 1em vw(145) 7.4rem;
 
   button {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    font-size: 3rem;
+    font-size: 1.5em;
   }
 }
 
@@ -22,17 +22,17 @@
     margin: 0 0 15rem;
     padding: 0 vw(229);
 
-    font-size: 3rem;
+    font-size: 1.5em;
     line-height: 2;
-    letter-spacing: 0.34rem;
+    letter-spacing: 0.17em;
     text-align: justify;
     text-transform: uppercase;
   }
 
   img {
     float: right;
-    margin: 5px vw(229) 0 3rem;
-    width: vw(605);
+    margin: 5px vw(229) 0 5rem;
+    width: max(180px, vw(605));
     object-fit: contain;
   }
 }
