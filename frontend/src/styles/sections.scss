@@ -10,24 +10,25 @@ section h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: vw(100);
 
   height: vw(1015);
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url("/assets/first-section-bg.png") center / cover;
 
   span {
-    width: -webkit-fill-available;
+    width: 40vw;
     color: #fff;
     font-size: vw(65);
     line-height: calc(90 / 65);
-    letter-spacing: calc(4.53 / 65) * 100px;
+    letter-spacing: 0.225em;
     text-align: center;
     text-transform: uppercase;
   }
 
   &__divider {
     flex-shrink: 0;
-    width: 10px;
+    width: vw(10);
     height: calc(617 / 1015) * 100%;
     border-radius: 50px;
     background: #fff;
