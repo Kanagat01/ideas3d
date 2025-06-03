@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import FileExtensionValidator
 
 
 class Status(models.TextChoices):
@@ -20,9 +21,12 @@ class Designer(models.Model):
 class House(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название')
     stl_file = models.FileField(
-        upload_to='stl_models/', verbose_name='Файл STL')
+        upload_to='stl_models/',
+        verbose_name='Файл STL',
+        validators=[FileExtensionValidator(allowed_extensions=['stl'])]
+    )
     price = models.DecimalField(
-        max_digits=10, decimal_places=2, verbose_name='Стоимость')
+        max_digits=10, decimal_places=2, verbose_name='Стоимость, ₽')
     description = models.TextField(blank=True, verbose_name='Описание')
     designer = models.ForeignKey(
         Designer, on_delete=models.CASCADE, verbose_name='Дизайнер')
@@ -126,9 +130,12 @@ class MafType(models.Model):
 class Maf(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название')
     stl_file = models.FileField(
-        upload_to='stl_models/', verbose_name='Файл STL')
+        upload_to='stl_models/',
+        verbose_name='Файл STL',
+        validators=[FileExtensionValidator(allowed_extensions=['stl'])]
+    )
     price = models.DecimalField(
-        max_digits=10, decimal_places=2, verbose_name='Стоимость')
+        max_digits=10, decimal_places=2, verbose_name='Стоимость, ₽')
     description = models.TextField(blank=True, verbose_name='Описание')
     status = models.CharField(
         max_length=3, choices=Status.choices, default=Status.IN_DEVELOPMENT, verbose_name='Статус')
