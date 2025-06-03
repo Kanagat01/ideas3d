@@ -6,14 +6,7 @@
     max-width: 100%;
     border: 1px solid var(--table-border);
     border-bottom: none;
-    margin-bottom: vw(80);
-    -webkit-overflow-scrolling: touch;
-
-    // scrollbar-width: none;
-    // -ms-overflow-style: none;
-    // &::-webkit-scrollbar {
-    //   display: none;
-    // }
+    margin-bottom: 4em;
   }
 
   table.model-table {
@@ -114,41 +107,71 @@
     justify-content: center;
 
     img {
-      height: vw(600);
+      width: vw(1000);
       object-fit: contain;
       margin-bottom: 6.4rem;
     }
+
     .floor-switcher {
-      position: absolute;
-      top: 0;
-      right: vw(150);
       display: inline-flex;
       border: 1px solid #000;
       border-radius: 8px;
-      overflow: hidden;
+      background: #fff;
 
+      &-wrapper {
+        position: absolute;
+        top: 0;
+        right: vw(150);
+        max-width: 40%;
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        @include mediaMaxW(768px) {
+          top: calc((1.6em + vw(57)) * -1);
+        }
+      }
+
+      $labelBorderRadius: 6px;
       input {
         position: absolute;
         opacity: 0;
         pointer-events: none;
 
         &:checked + label {
-          background: #000;
           color: #fff;
+          background: #000;
+          border-radius: $labelBorderRadius;
         }
       }
 
       label {
-        padding: 1.25rem 2rem;
-        text-align: center;
+        white-space: nowrap;
         cursor: pointer;
         user-select: none;
-        border: 1px solid transparent;
-        border-radius: 6px;
+        text-align: center;
+        padding: 0.625em 1em;
 
         color: var(--nav-item-color);
         background: #fff;
+        border: 1px solid transparent;
+        border-right-color: #000;
         transition: color 0.2s, background 0.2s;
+
+        &:first-of-type {
+          border-top-left-radius: $labelBorderRadius;
+          border-bottom-left-radius: $labelBorderRadius;
+          border-left-color: transparent;
+        }
+
+        &:last-of-type {
+          border-top-right-radius: $labelBorderRadius;
+          border-bottom-right-radius: $labelBorderRadius;
+          border-right-color: transparent;
+        }
+
+        @include mediaMaxW(768px) {
+          padding-block: 0.4em;
+        }
       }
     }
   }
@@ -157,13 +180,13 @@
     display: flex;
     align-items: center;
     color: rgb(46, 46, 46);
-    font-size: 1.6rem;
-    line-height: 1.7rem;
+    font-size: max(16px, 0.8em);
+    line-height: calc(17 / 16);
     text-transform: uppercase;
-    margin-bottom: 1.75rem;
+    margin-bottom: 0.9em;
 
     img {
-      margin-inline: 3rem 0.75rem;
+      margin-inline: 1.5em 0.4em;
     }
   }
 }

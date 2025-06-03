@@ -91,18 +91,36 @@ export default function HousePage() {
         <h4 className="floors-scheme">План этажей</h4>
         <div className="floor-scheme">
           <img src={house.floors[floorIdx].plan_image} alt="План этажа" />
-          <div className="floor-switcher">
-            {house.floors.map((el, key) => (
-              <Fragment key={key}>
-                <input
-                  id={`floor-${el.id}`}
-                  type="radio"
-                  checked={key === floorIdx}
-                  onChange={() => setFloorIdx(key)}
-                />
-                <label htmlFor={`floor-${el.id}`}>{el.name}</label>
-              </Fragment>
-            ))}
+          <div className="floor-switcher-wrapper">
+            <div className="floor-switcher">
+              {house.floors.map((el, key) => (
+                <Fragment key={key}>
+                  <input
+                    id={`floor-${el.id}`}
+                    type="radio"
+                    checked={key === floorIdx}
+                    onChange={() => setFloorIdx(key)}
+                  />
+                  <label
+                    htmlFor={`floor-${el.id}`}
+                    style={
+                      key + 1 === floorIdx
+                        ? { borderRightColor: "transparent" }
+                        : {}
+                    }
+                  >
+                    {el.name}
+                  </label>
+                </Fragment>
+              ))}
+              <input
+                id={`floor-${3}`}
+                type="radio"
+                checked={3 === floorIdx}
+                onChange={() => setFloorIdx(3)}
+              />
+              <label htmlFor={`floor-${3}`}>3 этаж</label>
+            </div>
           </div>
         </div>
 
