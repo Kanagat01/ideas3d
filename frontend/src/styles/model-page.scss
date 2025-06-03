@@ -1,15 +1,27 @@
 @use "utils" as *;
 
 .model-page {
-  table.model-table {
-    &:nth-child(2) {
-      margin-bottom: vw(80);
-      border-top: none;
-    }
+  .table-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
     border: 1px solid var(--table-border);
-    line-height: 1.44rem;
+    border-bottom: none;
+    margin-bottom: vw(80);
+    -webkit-overflow-scrolling: touch;
+
+    // scrollbar-width: none;
+    // -ms-overflow-style: none;
+    // &::-webkit-scrollbar {
+    //   display: none;
+    // }
+  }
+
+  table.model-table {
+    width: auto;
+    line-height: 0.72em;
     letter-spacing: 1.2px;
     text-transform: uppercase;
+    border-bottom: 1px solid var(--table-border);
 
     .col-wide {
       width: 25%;
@@ -28,18 +40,19 @@
     }
     th,
     td {
-      padding: 2.4rem;
+      padding: 1.2em;
+      word-break: normal;
+      white-space: nowrap;
     }
     th {
-      font-size: 1.2rem;
+      font-size: max(12px, 0.6em);
       color: var(--nav-item-color);
       font-family: "Roboto Mono";
-      padding-bottom: 0.3rem;
     }
     td {
-      font-size: 1.4rem;
+      font-size: max(14px, 0.7em);
       color: rgb(15, 14, 15);
-      padding-top: 0.3rem;
+      padding-top: 0;
     }
   }
 
@@ -51,7 +64,7 @@
   }
 
   table:not(.model-table) {
-    margin: 0 vw(150) 5rem vw(145);
+    margin: 0 vw(150) 2.5em vw(145);
 
     tr:first-child {
       border-top: 1px solid var(--table-border);
@@ -81,12 +94,17 @@
   }
 
   .description {
-    margin-top: 3.2rem;
-    margin-inline-start: 11rem;
-    font-size: 1.5rem;
-    line-height: 2.5rem;
+    margin-top: 1.6em;
+    margin-inline-start: 5.5em;
+    font-size: max(14px, 0.75em);
+    line-height: 1.25em;
     letter-spacing: calc((1.2 / 15) * 1px);
     text-transform: uppercase;
+    word-break: break-word;
+
+    @include mediaMaxW(768px) {
+      margin-inline-start: 2em;
+    }
   }
 
   .floor-scheme {

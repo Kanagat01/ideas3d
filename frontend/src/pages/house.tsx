@@ -27,58 +27,59 @@ export default function HousePage() {
         <BackBtnContainer grayBg={false} />
         <ModelViewer url={house.stl_file} />
         <div className="gray-bg">
-          <table className="model-table">
-            <colgroup>
-              <col className="col-wide" />
-              <col className="col-narrow" />
-              <col className="col-narrow" />
-              <col className="col-narrow" />
-              <col className="col-wide" />
-              <col className="col-wide" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th>Название</th>
-                <th>Кол-во комнат</th>
-                <th>Кол-во этажей</th>
-                <th>Кол-во уборных</th>
-                <th>Площадь</th>
-                <th>Площадь</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>*Название продукта*</td>
-                <td>4</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1 м2</td>
-                <td>1 м2</td>
-              </tr>
-            </tbody>
-          </table>
-          <table className="model-table">
-            <thead>
-              <tr>
-                <th>Стоимость</th>
-                <th>Продолжительность</th>
-                <th>Дизайнер</th>
-                <th>Статус</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{house.price} ₽</td>
-                <td>{house.duration}</td>
-                <td>{house.designer.name}</td>
-                <td>
-                  {house.status === "RDY"
-                    ? "Готов к постройке"
-                    : "В разработке"}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="table-wrapper">
+            <table className="model-table">
+              <colgroup>
+                <col className="col-wide" />
+                <col className="col-narrow" />
+                <col className="col-narrow" />
+                <col className="col-wide" />
+                <col className="col-wide" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Название</th>
+                  <th>Кол-во комнат</th>
+                  <th>Кол-во этажей</th>
+                  <th>Общая площадь</th>
+                  <th>Жилая площадь</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{house.name}</td>
+                  <td>
+                    {house.floors.reduce((acc, el) => acc + el.rooms.length, 0)}
+                  </td>
+                  <td>{house.floors.length}</td>
+                  <td>{house.total_area} м²</td>
+                  <td>{house.living_area} м²</td>
+                </tr>
+
+                {/* Вторая таблица */}
+                <tr
+                  style={{
+                    borderTop: "1px solid var(--table-border)",
+                  }}
+                >
+                  <th>Стоимость</th>
+                  <th colSpan={2}>Продолжительность строительства</th>
+                  <th>Дизайнер</th>
+                  <th>Статус</th>
+                </tr>
+                <tr>
+                  <td>{house.price} ₽</td>
+                  <td colSpan={2}>{house.duration}</td>
+                  <td>{house.designer.name}</td>
+                  <td>
+                    {house.status === "RDY"
+                      ? "Готов к постройке"
+                      : "В разработке"}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <h4>Описание</h4>
           <p className="description">{house.description}</p>
         </div>
@@ -108,7 +109,7 @@ export default function HousePage() {
         <table>
           <tbody>
             {[
-              ["*название комнаты*", "*площадь* м2"],
+              ["*название комнаты*", "*площадь* "],
               ["*название комнаты*", "*площадь* м2"],
               ["*название комнаты*", "*площадь* м2"],
               ["*название комнаты*", "*площадь* м2"],
@@ -116,7 +117,7 @@ export default function HousePage() {
             ].map((item, key) => (
               <tr key={key}>
                 <td>{item[0]}</td>
-                <td>{item[1]}</td>
+                <td>{item[1]} м²</td>
               </tr>
             ))}
           </tbody>

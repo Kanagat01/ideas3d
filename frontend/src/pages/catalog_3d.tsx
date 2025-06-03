@@ -122,7 +122,7 @@ export default function Catalog3DPage() {
     />,
     filters.buildingType === "house" && (
       <RangeInput
-        label="общая площадь"
+        label="общая площадь (м²)"
         minValue={filters.totalAreaMin}
         maxValue={filters.totalAreaMax}
         onMinValueChange={(value) => handleChange("totalAreaMin", value)}
@@ -131,7 +131,7 @@ export default function Catalog3DPage() {
     ),
     filters.buildingType === "house" && (
       <RangeInput
-        label="жилая площадь"
+        label="жилая площадь (м²)"
         minValue={filters.livingAreaMin}
         maxValue={filters.livingAreaMax}
         onMinValueChange={(value) => handleChange("livingAreaMin", value)}
@@ -247,8 +247,8 @@ export default function Catalog3DPage() {
                 name={el.name}
                 status={el.status}
                 data={[
-                  `Общая площадь: ${el.total_area}`,
-                  `Жилая площадь: ${el.living_area}`,
+                  `Общая площадь: ${el.total_area} м²`,
+                  `Жилая площадь: ${el.living_area} м²`,
                   `Кол-во комнат: ${el.floors.reduce(
                     (acc, el) => acc + el.rooms.length,
                     0
