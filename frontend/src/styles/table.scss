@@ -1,11 +1,11 @@
+@use "./utils.scss" as *;
+
 table {
   border-collapse: collapse;
   width: -webkit-fill-available;
   table-layout: fixed;
   color: var(--nav-item-color);
-  font-size: 1.6rem;
-  line-height: 1.7rem;
-  letter-spacing: 0;
+  font-size: max(14px, 1.6rem);
   text-align: left;
   text-transform: uppercase;
 
@@ -16,7 +16,12 @@ table {
   }
   th,
   td {
-    padding: 0.95rem 3rem;
+    padding: 0.475em 1.5em;
+    word-break: break-word;
+
+    @include mediaMaxW(768px) {
+      padding: 0.475em;
+    }
   }
   tr {
     border-bottom: 1px solid var(--table-border);

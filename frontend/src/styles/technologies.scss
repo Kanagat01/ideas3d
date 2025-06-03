@@ -63,15 +63,19 @@
 
   h1 {
     margin: 0 $marginInline;
-    font-weight: 400;
+    font-weight: 600;
     text-transform: uppercase;
     margin-bottom: 11rem;
+
+    @include mediaMaxW(768px) {
+      margin: 5rem $marginInline 50px;
+    }
   }
 
   h3 {
     margin: 0;
     padding: 8.2rem $marginInline 9.5rem;
-    font-weight: 400;
+    font-weight: 450;
     text-transform: uppercase;
   }
 
@@ -99,18 +103,29 @@
     p {
       margin: 0;
       width: vw(780);
-      line-height: 3.6rem;
-      letter-spacing: 0.055rem;
+      line-height: 1.5;
+      letter-spacing: 0.55px;
       text-transform: uppercase;
+      font-weight: 450;
 
       span {
         font-size: 1.2em;
       }
     }
+
+    @include mediaMaxW(768px) {
+      flex-direction: column;
+      gap: 30px;
+
+      img,
+      p {
+        width: 100%;
+      }
+    }
   }
 
   table {
-    margin-top: 5rem;
+    margin-top: 2.5em;
     margin-inline: $marginInline;
   }
 }
