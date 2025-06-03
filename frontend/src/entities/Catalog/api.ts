@@ -28,8 +28,13 @@ export const $catalog = createStore<Catalog>({
     price: Number(el.price),
     living_area: Number(el.living_area),
     total_area: Number(el.total_area),
+    images: el.images.map((el) => ({
+      ...el,
+      image: `${API_URL}${el.image}`,
+    })),
     floors: el.floors.map((floor) => ({
       ...floor,
+      plan_image: `${API_URL}${floor.plan_image}`,
       rooms: floor.rooms.map((room) => ({ ...room, area: Number(room.area) })),
     })),
   })),

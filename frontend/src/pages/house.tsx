@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useUnit } from "effector-react";
 import { Navigate, useParams } from "react-router-dom";
 import { BackBtnContainer, Carousel } from "~/widgets";
@@ -11,6 +11,7 @@ export default function HousePage() {
   const [triedLoad, setTriedLoad] = useState(false);
   const [isLoading, catalog] = useUnit([getCatalogFx.pending, $catalog]);
   const house = catalog.houses.find((el) => el.id === Number(id));
+  const [floorIdx, setFloorIdx] = useState(0);
 
   useEffect(() => {
     if (catalog.houses.length === 0) {
@@ -83,41 +84,38 @@ export default function HousePage() {
           <h4>Описание</h4>
           <p className="description">{house.description}</p>
         </div>
+
         <h4 className="photos">Фотографии здания</h4>
-        <Carousel
-          items={[
-            { img: "/assets/news-1.png" },
-            { img: "/assets/news-2.png" },
-            { img: "/assets/news-3.png" },
-            { img: "/assets/mixture-1.png" },
-          ]}
-        />
+        <Carousel items={house.images.map((el) => ({ img: el.image }))} />
+
         <h4 className="floors-scheme">План этажей</h4>
         <div className="floor-scheme">
-          <img src="/assets/scheme.png" alt="План этажа" />
+          <img src={house.floors[floorIdx].plan_image} alt="План этажа" />
           <div className="floor-switcher">
-            <input type="radio" name="floor" id="floor1" defaultChecked />
-            <label htmlFor="floor1">1 этаж</label>
-            <input type="radio" name="floor" id="floor2" />
-            <label htmlFor="floor2">2 этаж</label>
+            {house.floors.map((el, key) => (
+              <Fragment key={key}>
+                <input
+                  id={`floor-${el.id}`}
+                  type="radio"
+                  checked={key === floorIdx}
+                  onChange={() => setFloorIdx(key)}
+                />
+                <label htmlFor={`floor-${el.id}`}>{el.name}</label>
+              </Fragment>
+            ))}
           </div>
         </div>
+
         <div className="floors-info">
           <img src="/assets/line.svg" alt="line" />
           Инвормация по этажам
         </div>
         <table>
           <tbody>
-            {[
-              ["*название комнаты*", "*площадь* "],
-              ["*название комнаты*", "*площадь* м2"],
-              ["*название комнаты*", "*площадь* м2"],
-              ["*название комнаты*", "*площадь* м2"],
-              ["*название комнаты*", "*площадь* м2"],
-            ].map((item, key) => (
-              <tr key={key}>
-                <td>{item[0]}</td>
-                <td>{item[1]} м²</td>
+            {house.floors[floorIdx].rooms.map((room) => (
+              <tr key={room.id}>
+                <td>{room.name}</td>
+                <td>{room.area} м²</td>
               </tr>
             ))}
           </tbody>
