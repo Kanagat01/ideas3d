@@ -18,6 +18,11 @@
     .col-narrow {
       width: 8.333%;
     }
+
+    .col-medium {
+      width: 12.5%;
+    }
+
     tr {
       border-bottom: none;
     }
@@ -62,7 +67,7 @@
   }
 
   h4 {
-    font-weight: 400;
+    font-weight: 600;
     line-height: calc(25 / 32);
     letter-spacing: calc((1.2 / 32) * 1px);
     text-transform: uppercase;

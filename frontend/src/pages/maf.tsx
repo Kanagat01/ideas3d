@@ -30,30 +30,53 @@ export default function MafPage() {
           <table className="model-table">
             <colgroup>
               <col className="col-wide" />
-              <col className="col-narrow" />
-              <col className="col-narrow" />
-              <col className="col-narrow" />
+              {["length", "width", "height", "diameter"].map((key) => {
+                const values = [
+                  maf.length,
+                  maf.width,
+                  maf.height,
+                  maf.diameter,
+                ];
+                const nonZeroCount = values.filter(Boolean).length;
+                const className =
+                  nonZeroCount >= 3 ? "col-narrow" : "col-medium";
+                if (maf[key as keyof typeof maf]) {
+                  return <col key={key} className={className} />;
+                }
+                return null;
+              })}
               <col className="col-wide" />
               <col className="col-wide" />
             </colgroup>
             <thead>
               <tr>
                 <th>Название</th>
-                <th>Кол-во комнат</th>
-                <th>Кол-во этажей</th>
-                <th>Кол-во уборных</th>
-                <th>Площадь</th>
-                <th>Площадь</th>
+                {[
+                  ["length", "Длина"],
+                  ["width", "Ширина"],
+                  ["height", "Высота"],
+                  ["diameter", "Диаметр"],
+                ].map(
+                  ([key, value], idx) =>
+                    maf[key as keyof typeof maf] && <th key={idx}>{value}</th>
+                )}
+                <th>Тип</th>
+                <th>Стиль</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>*Название продукта*</td>
-                <td>4</td>
-                <td>1</td>
-                <td>1</td>
-                <td>1 м2</td>
-                <td>1 м2</td>
+                <td>{maf.name}</td>
+                {["length", "width", "height", "diameter"].map(
+                  (key, idx) =>
+                    maf[key as keyof typeof maf] && (
+                      <td key={idx}>
+                        {maf[key as keyof typeof maf] as string}
+                      </td>
+                    )
+                )}
+                <td>{maf.type.name}</td>
+                <td>{maf.style.name}</td>
               </tr>
             </tbody>
           </table>
@@ -68,15 +91,17 @@ export default function MafPage() {
             </thead>
             <tbody>
               <tr>
-                <td>*Стоимость*</td>
-                <td>*Продолжительность*</td>
-                <td>*Имя или название компании*</td>
-                <td>Готов к постройке</td>
+                <td>{maf.price} ₽</td>
+                <td>{maf.duration}</td>
+                <td>{maf.designer.name}</td>
+                <td>
+                  {maf.status === "RDY" ? "Готов к постройке" : "В разработке"}
+                </td>
               </tr>
             </tbody>
           </table>
           <h4>Описание</h4>
-          <p className="description">*Описание продукта*</p>
+          <p className="description">{maf.description}</p>
         </div>
       </div>
     )

@@ -26,7 +26,6 @@ export const $catalog = createStore<Catalog>({
     ...el,
     stl_file: `${API_URL}${el.stl_file}`,
     price: Number(el.price),
-    duration: Number(el.duration),
     living_area: Number(el.living_area),
     total_area: Number(el.total_area),
     floors: el.floors.map((floor) => ({
@@ -38,6 +37,5 @@ export const $catalog = createStore<Catalog>({
     ...el,
     stl_file: `${API_URL}${el.stl_file}`,
     price: Number(el.price),
-    duration: Number(el.duration),
-  })), // Convert price and duration to numbers
+  })), // Convert price to number
 }));

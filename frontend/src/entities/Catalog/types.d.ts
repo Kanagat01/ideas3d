@@ -20,12 +20,16 @@ interface Maf {
   name: string;
   stl_file: string;
   price: number;
-  duration: number;
+  duration: string;
   description: string;
   status: CatalogObjStatus;
   designer: Designer;
   style: MafStyle;
   type: MafType;
+  length?: string;
+  width?: string;
+  height?: string;
+  diameter?: string;
 }
 
 interface Room {
@@ -53,7 +57,7 @@ interface House {
   stl_file: string;
   price: number;
   description: string;
-  duration: number;
+  duration: string;
   living_area: number;
   total_area: number;
   status: CatalogObjStatus;

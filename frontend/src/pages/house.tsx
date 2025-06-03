@@ -68,15 +68,19 @@ export default function HousePage() {
             </thead>
             <tbody>
               <tr>
-                <td>*Стоимость*</td>
-                <td>*Продолжительность*</td>
-                <td>*Имя или название компании*</td>
-                <td>Готов к постройке</td>
+                <td>{house.price} ₽</td>
+                <td>{house.duration}</td>
+                <td>{house.designer.name}</td>
+                <td>
+                  {house.status === "RDY"
+                    ? "Готов к постройке"
+                    : "В разработке"}
+                </td>
               </tr>
             </tbody>
           </table>
           <h4>Описание</h4>
-          <p className="description">*Описание продукта*</p>
+          <p className="description">{house.description}</p>
         </div>
         <h4 className="photos">Фотографии здания</h4>
         <Carousel
