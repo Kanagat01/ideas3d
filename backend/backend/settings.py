@@ -4,18 +4,17 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY", default='django-insecure-+nh5&*9h5r=$%kv6)_zubv5@#m8k-!pr8j!-k@*i!778%kjq7h')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+DEBUG = bool(os.environ.get("DEBUG", default=1))
+ALLOWED_HOSTS = os.environ.get(
+    "DJANGO_ALLOWED_HOSTS", default='localhost 127.0.0.1').split()
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&jjw#etzo)$uf1c=dlmb9zp^j#z53yx%9lm516numuc!z=47lv'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = os.environ.get(
+    "DJANGO_CORS_ALLOWED_ORIGINS", "http://localhost:5173").split()
+CSRF_TRUSTED_ORIGINS = os.environ.get(
+    "DJANGO_CSRF_TRUSTED_ORIGINS", "http://localhost:5173").split()
 
 
 # Application definition
@@ -33,6 +32,9 @@ INSTALLED_APPS = [
     "catalog",
     "news",
 ]
+
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,12 +71,27 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if bool(os.environ.get('RUNNING_FROM_DOCKER', False)):
+    print("USING POSTGRESQL DATABASE")
+    DATABASES = {
+        "default": {
+            "ENGINE": 'django.db.backends.postgresql',
+            "NAME": os.environ.get("POSTGRES_DB"),
+            "USER": os.environ.get("POSTGRES_USER"),
+            "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+            "HOST": os.environ.get("POSTGRES_HOST"),
+            "PORT": os.environ.get("POSTGRES_PORT"),
+        }
     }
-}
+
+else:
+    print("USING SQLITE DATABASE")
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -116,6 +133,41 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Logging
+LOGGING = {}
+
+if os.environ.get('RUNNING_FROM_DOCKER', False):
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+                'style': '{',
+            },
+            'simple': {
+                'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+                'style': '{',
+            },
+        },
+        'handlers': {
+            'file': {
+                'level': 'INFO' if DEBUG else 'ERROR',
+                'class': 'logging.FileHandler',
+                'filename': './logs.log',
+                'formatter': 'verbose',
+                'encoding': 'utf-8',
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['file'],
+                'level': 'INFO' if DEBUG else 'ERROR',
+                'propagate': True,
+            },
+        },
+    }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

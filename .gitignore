@@ -3,6 +3,7 @@
 venv/
 backend/media
 backend/media/**
+*.sqlite3
 
 ## FRONTEND
 # Logs
