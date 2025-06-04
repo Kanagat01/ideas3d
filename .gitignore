@@ -4,6 +4,7 @@ venv/
 backend/media
 backend/media/**
 *.sqlite3
+__pycache__/
 
 ## FRONTEND
 # Logs
