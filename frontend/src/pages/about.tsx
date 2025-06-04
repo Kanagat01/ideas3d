@@ -20,7 +20,30 @@ export default function AboutPage() {
         </div>
       </section>
       <PartnersSection />
-      <button className="contacts-block">Контакты</button>
+      <div className="contacts-block">
+        <a href="mailto:ideas3dbuild@gmail.com" className="mail">
+          <div className="icon-wrapper">
+            <img
+              src="/assets/mail.svg"
+              alt="mail-icon"
+              width="100%"
+              height="100%"
+            />
+          </div>
+          ideas3dbuild@gmail.com
+        </a>
+        <a href="tel:+79960382729" className="phone">
+          <div className="icon-wrapper">
+            <img
+              src="/assets/vibrating_phone.svg"
+              alt="phone"
+              width="65%"
+              height="65%"
+            />
+          </div>
+          +7 (996)-038-27-29
+        </a>
+      </div>
     </>
   );
 }

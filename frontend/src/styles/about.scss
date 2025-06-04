@@ -47,13 +47,48 @@
 }
 
 .contacts-block {
-  width: calc(100% - vw(416));
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: vw(50);
+  row-gap: 0.5em;
+  padding: 0 vw(150);
   margin: 0 vw(208) 2em;
-  background-color: var(--gray);
 
-  font-family: "Roboto Mono";
-  font-size: 2em;
-  line-height: 2.5em;
-  letter-spacing: 0.175em;
-  text-transform: uppercase;
+  @include mediaMaxW(414px) {
+    padding: 0;
+  }
+
+  .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--nav-item-color);
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+
+    img {
+      object-fit: contain;
+    }
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 1em;
+
+    font-family: "Roboto Mono";
+    font-size: 1.8em;
+    font-weight: 450;
+    line-height: 2.4em;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+    color: var(--nav-item-color);
+
+    @include mediaMaxW(768px) {
+      font-size: 1.3em;
+      line-height: 1;
+    }
+  }
 }
