@@ -8,6 +8,7 @@ enum Routes {
   TECHNOLOGIES = "/technologies",
   MIXTURES = "/mixtures",
   PRINTERS = "/printers",
+  HELP = "/help",
 }
 
 export default Routes;

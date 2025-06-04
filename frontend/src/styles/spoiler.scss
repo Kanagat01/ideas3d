@@ -1,0 +1,49 @@
+.spoiler {
+  margin-bottom: 1.75em;
+
+  &__header,
+  &__body {
+    text-align: left;
+    text-transform: uppercase;
+    line-height: calc(45 / 28);
+  }
+
+  &__header {
+    width: 100%;
+    background: none;
+    border: none;
+    font-size: 1.4em;
+
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__bottom-line {
+    height: 1px;
+    width: calc((1900 - 148 * 2) / 1900 * 100vw);
+    justify-self: center;
+    background: var(--table-border);
+  }
+
+  &__body {
+    font-size: 1.2em;
+    transition: height 0.3s;
+    overflow: hidden;
+
+    ul {
+      margin: 0;
+      padding: 0 0 0 1.5em;
+    }
+  }
+}
+
+.arrow {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}

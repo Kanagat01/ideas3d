@@ -14,7 +14,7 @@ export function Header() {
             ["3D каталог", Routes.CATALOG_3D],
             ["Технология", Routes.TECHNOLOGIES],
             ["О нас", Routes.ABOUT],
-            ["Помощь и поддержка", "#"],
+            ["Помощь и поддержка", Routes.HELP],
           ].map(([name, link], key) => (
             <li key={key}>
               <NavLink to={link}>{name}</NavLink>
@@ -22,7 +22,7 @@ export function Header() {
           ))}
         </ul>
       </nav>
-      <NavLink to={"#"} className="header__support">
+      <NavLink to={Routes.HELP} className="header__support">
         Помощь и поддержка
       </NavLink>
     </header>

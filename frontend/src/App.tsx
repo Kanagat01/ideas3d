@@ -14,6 +14,7 @@ import PrintersPage from "./pages/printers";
 import Catalog3DPage from "./pages/catalog_3d";
 import MafPage from "./pages/maf";
 import HousePage from "./pages/house";
+import HelpPage from "./pages/help";
 
 const App = () => {
   const public_routes: Array<[string, ReactNode]> = [
@@ -26,6 +27,7 @@ const App = () => {
     [urls.TECHNOLOGIES, <TechnologiesPage />],
     [urls.MIXTURES, <MixturesPage />],
     [urls.PRINTERS, <PrintersPage />],
+    [urls.HELP, <HelpPage />],
   ];
 
   return (

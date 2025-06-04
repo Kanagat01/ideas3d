@@ -1,0 +1,26 @@
+@use "utils" as *;
+
+.help-page {
+  color: rgb(0, 0, 0);
+  font-family: "Inter";
+  text-align: justify;
+  text-transform: uppercase;
+  letter-spacing: 3.38px;
+  margin-bottom: 5.25em;
+
+  h3 {
+    text-align: left;
+    font-weight: 600;
+    line-height: calc(62 / 48);
+    padding-inline: vw(145);
+  }
+  p {
+    font-size: 1.2em;
+    line-height: calc(61 / 24);
+  }
+  p,
+  .spoiler__header,
+  .spoiler__body {
+    padding-inline: vw(230);
+  }
+}
