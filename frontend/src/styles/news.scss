@@ -12,6 +12,15 @@
 }
 
 .news-container {
+  position: relative;
+  margin-bottom: 15rem;
+
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
   h1 {
     font-weight: 600;
     margin-block: 5rem;
@@ -19,7 +28,7 @@
   }
 
   p {
-    margin: 0 0 15rem;
+    margin: 0;
     padding: 0 vw(229);
 
     font-size: 1.5em;
