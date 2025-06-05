@@ -64,10 +64,10 @@ server {
     }
 
     location /static/ {
-        alias /home/app/staticfiles/;
+        alias /home/app/static/;
     }
 
     location /media/ {
-        alias /home/app/mediafiles/;
+        alias /home/app/media/;
     }
 }
