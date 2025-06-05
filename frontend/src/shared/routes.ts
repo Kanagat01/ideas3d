@@ -9,6 +9,7 @@ enum Routes {
   MIXTURES = "/mixtures",
   PRINTERS = "/printers",
   HELP = "/help",
+  PRIVACY_POLICY = "/privacy-policy",
 }
 
 export default Routes;

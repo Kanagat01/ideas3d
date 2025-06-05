@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Routes from "~/shared/routes";
 
 export function Footer() {
   return (
@@ -17,9 +18,11 @@ export function Footer() {
 const TermsAndInfo = ({ mode }: { mode: string }) => (
   <>
     <div className={`footer__terms footer__terms--${mode}`}>
-      <Link to={"#"}>Пользовательское соглашение</Link>{" "}
+      <Link to={Routes.PRIVACY_POLICY}>Пользовательское соглашение</Link>{" "}
       {mode === "desktop" && <span className="footer__terms__divider" />}
-      <Link to={"#"}>Политика обработки персональных данных</Link>
+      <Link to={Routes.PRIVACY_POLICY}>
+        Политика обработки персональных данных
+      </Link>
     </div>
     <div className={`footer__company-info footer__company-info--${mode}`}>
       <div style={{ textWrap: "nowrap" }}>ООО “ИДЕЯ 3Д СТРОЙ”</div>

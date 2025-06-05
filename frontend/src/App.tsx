@@ -15,6 +15,7 @@ import Catalog3DPage from "./pages/catalog_3d";
 import MafPage from "./pages/maf";
 import HousePage from "./pages/house";
 import HelpPage from "./pages/help";
+import PrivacyPolicy from "./pages/privacy_policy";
 
 const App = () => {
   const public_routes: Array<[string, ReactNode]> = [
@@ -28,6 +29,7 @@ const App = () => {
     [urls.MIXTURES, <MixturesPage />],
     [urls.PRINTERS, <PrintersPage />],
     [urls.HELP, <HelpPage />],
+    [urls.PRIVACY_POLICY, <PrivacyPolicy />],
   ];
 
   return (
