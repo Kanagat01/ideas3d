@@ -11,16 +11,10 @@ services:
     ports:
       - "5432:5432"
 
-
   django_project:
     build: ./backend
     command: >
-      gunicorn backend.wsgi:application
-      --bind 0.0.0.0:8000
-      --workers 3
-      --log-level info
-      --access-logfile -
-      --error-logfile -
+      gunicorn backend.wsgi:application --bind 0.0.0.0:8000 --workers 3 --log-level info --access-logfile - --error-logfile -
 
     networks:
       - back
@@ -61,8 +55,8 @@ services:
     volumes:
       - static_volume:/home/app/staticfiles
       - media_volume:/home/app/mediafiles
-      - /etc/letsencrypt/live/tgblink.ru/fullchain.pem:/certificate/fullchain.pem:ro
-      - /etc/letsencrypt/live/tgblink.ru/privkey.pem:/certificate/privkey.pem:ro
+      - /etc/letsencrypt/live/ideas3d.ru/fullchain.pem:/certificate/fullchain.pem:ro
+      - /etc/letsencrypt/live/ideas3d.ru/privkey.pem:/certificate/privkey.pem:ro
 
     ports:
       - '80:80'
@@ -78,6 +72,7 @@ volumes:
   database:
   static_volume:
   media_volume:
+
 
 networks:
   front:
