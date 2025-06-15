@@ -1,18 +1,26 @@
 import { Modal } from "antd";
-import { FormEvent, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { useUnit } from "effector-react";
+import { FormEvent, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { BackBtnContainer } from "~/widgets";
-import { $cart, $catalog, getCatalogFx, setCart } from "~/entities/Catalog";
+import {
+  $cart,
+  $catalog,
+  createApplicationFx,
+  getCatalogFx,
+  setCart,
+} from "~/entities/Catalog";
 import { Preloader } from "~/shared/ui";
 import Routes from "~/shared/routes";
 
 export default function CartPage() {
   const [triedLoad, setTriedLoad] = useState(false);
-  const [isLoading, catalog, cart] = useUnit([
+  const [isLoading, formDisabled, catalog, cart] = useUnit([
     getCatalogFx.pending,
+    createApplicationFx.pending,
     $catalog,
     $cart,
   ]);
@@ -26,20 +34,30 @@ export default function CartPage() {
       setCart(
         cart.filter((item) => {
           return Boolean(
-            catalog[`${item.__type}s`].find((el) => el.id === item.id)
+            catalog[`${item.item_type}s`].find((el) => el.id === item.id)
           );
         })
       );
   }, [triedLoad]);
 
+  const [data, setData] = useState({ full_name: "", contact: "" });
   const [show, setShow] = useState(false);
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setShow(false);
+    toast.promise(createApplicationFx({ ...data, cart }), {
+      loading: "Отправляем заявку...",
+      success: () => {
+        setShow(false);
+        setData({ full_name: "", contact: "" });
+        return "Заявка успешно отправлена!";
+      },
+      error: (error) => `Ошибка при отправке заявки: ${error}`,
+    });
   };
   const onReset = (e: FormEvent) => {
     e.preventDefault();
     setShow(false);
+    setData({ full_name: "", contact: "" });
   };
 
   if (isLoading) return <Preloader />;
@@ -80,7 +98,8 @@ export default function CartPage() {
                           item.amount > 1 &&
                           setCart(
                             cart.map((el) =>
-                              el.__type === item.__type && el.id === item.id
+                              el.item_type === item.item_type &&
+                              el.id === item.id
                                 ? { ...item, amount: item.amount - 1 }
                                 : el
                             )
@@ -94,7 +113,8 @@ export default function CartPage() {
                         onClick={() =>
                           setCart(
                             cart.map((el) =>
-                              el.__type === item.__type && el.id === item.id
+                              el.item_type === item.item_type &&
+                              el.id === item.id
                                 ? { ...item, amount: item.amount + 1 }
                                 : el
                             )
@@ -111,7 +131,10 @@ export default function CartPage() {
                         setCart(
                           cart.filter(
                             (el) =>
-                              !(el.__type === item.__type && el.id === item.id)
+                              !(
+                                el.item_type === item.item_type &&
+                                el.id === item.id
+                              )
                           )
                         )
                       }
@@ -153,13 +176,35 @@ export default function CartPage() {
               </div>
               <div className="form-group">
                 <label htmlFor="full_name">Ваше имя</label>
-                <input type="text" id="full_name" placeholder="Введите текст" />
+                <input
+                  id="full_name"
+                  placeholder="Введите текст"
+                  value={data.full_name}
+                  onChange={(e) =>
+                    setData({ ...data, full_name: e.target.value })
+                  }
+                  type="text"
+                  required
+                />
               </div>
               <div className="form-group">
                 <label htmlFor="contact">тел/Email</label>
-                <input type="text" id="contact" placeholder="Введите текст" />
+                <input
+                  id="contact"
+                  placeholder="Введите текст"
+                  value={data.contact}
+                  onChange={(e) =>
+                    setData({ ...data, contact: e.target.value })
+                  }
+                  type="text"
+                  required
+                />
               </div>
-              <button className="rounded-gray-btn" type="submit">
+              <button
+                className="rounded-gray-btn"
+                type="submit"
+                disabled={formDisabled}
+              >
                 Отправить
               </button>
             </form>

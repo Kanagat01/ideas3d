@@ -15,15 +15,15 @@ export default function HousePage() {
 
   const cart = useUnit($cart);
   const inCart = cart.some(
-    (el) => el.__type === "house" && el.id === house?.id
+    (el) => el.item_type === "house" && el.id === house?.id
   );
   const handleCartClick = () => {
     if (inCart) {
       setCart(
-        cart.filter((el) => !(el.__type === "house" && el.id === house?.id))
+        cart.filter((el) => !(el.item_type === "house" && el.id === house?.id))
       );
     } else if (house) {
-      setCart([...cart, { ...house, __type: "house", amount: 1 }]);
+      setCart([...cart, { ...house, item_type: "house", amount: 1 }]);
     }
   };
 

@@ -45,11 +45,23 @@ export const $catalog = createStore<Catalog>({
   })), // Convert price to number
 }));
 
+// ----------------------------- CART -------------------------
+export const createApplicationFx = createEffect<
+  { full_name: string; contact: string; cart: CartItem[] },
+  string
+>(async (data) => {
+  const response = await apiInstance.post("api/create-application/", data);
+  return response.data.message;
+});
+
 const savedCart = sessionStorage.getItem("cart");
 export const setCart = createEvent<CartItem[]>();
 export const $cart = createStore<CartItem[]>(
   savedCart ? JSON.parse(savedCart) : []
-).on(setCart, (_, state) => {
+)
+  .on(setCart, (_, state) => state)
+  .on(createApplicationFx.doneData, (_state, _response) => []);
+
+$cart.watch((state) => {
   sessionStorage.setItem("cart", JSON.stringify(state));
-  return state;
 });

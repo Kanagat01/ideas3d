@@ -1,6 +1,7 @@
 import compose from "compose-function";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { JSX, ReactNode, Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 import { Footer, Header } from "./widgets";
 import urls from "~/shared/routes";
 import "./styles/index.scss";
@@ -47,6 +48,7 @@ const App = () => {
 const withLayout = (component: () => JSX.Element) => () =>
   (
     <>
+      <Toaster position="top-center" />
       <Header />
       <main className="main">{component()}</main>
       <Footer />

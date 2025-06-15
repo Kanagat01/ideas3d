@@ -13,12 +13,14 @@ export default function MafPage() {
   const maf = catalog.mafs.find((el) => el.id === Number(id));
 
   const cart = useUnit($cart);
-  const inCart = cart.some((el) => el.__type === "maf" && el.id === maf?.id);
+  const inCart = cart.some((el) => el.item_type === "maf" && el.id === maf?.id);
   const handleCartClick = () => {
     if (inCart) {
-      setCart(cart.filter((el) => !(el.__type === "maf" && el.id === maf?.id)));
+      setCart(
+        cart.filter((el) => !(el.item_type === "maf" && el.id === maf?.id))
+      );
     } else if (maf) {
-      setCart([...cart, { ...maf, __type: "maf", amount: 1 }]);
+      setCart([...cart, { ...maf, item_type: "maf", amount: 1 }]);
     }
   };
 

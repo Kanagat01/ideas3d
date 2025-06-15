@@ -67,5 +67,5 @@ interface House {
 }
 
 type CartItem =
-  | (Maf & { __type: "maf"; amount: number })
-  | (House & { __type: "house"; amount: number });
+  | (Maf & { item_type: "maf"; amount: number })
+  | (House & { item_type: "house"; amount: number });
