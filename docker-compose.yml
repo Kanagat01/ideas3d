@@ -34,6 +34,18 @@ services:
       - db
     restart: on-failure
 
+  bot:
+    build: ./backend
+    command: python -m tgbot.main
+    networks:
+      - back
+    volumes:
+      - ./backend/:/usr/src/app/
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: on-failure
   react_app:
     build: ./frontend
     networks:

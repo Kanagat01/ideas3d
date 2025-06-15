@@ -16,6 +16,8 @@ CORS_ALLOWED_ORIGINS = os.environ.get(
 CSRF_TRUSTED_ORIGINS = os.environ.get(
     "DJANGO_CSRF_TRUSTED_ORIGINS", "http://localhost:5173").split()
 
+MANAGER_TG_IDS = os.environ.get("MANAGER_TG_IDS", "").split()
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 
 # Application definition
 
