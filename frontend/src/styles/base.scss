@@ -66,6 +66,18 @@ button {
   cursor: pointer;
 }
 
+::-webkit-scrollbar {
+  height: 8px;
+  opacity: 0.4;
+  background: #fff;
+  border-radius: 10px;
+
+  &-thumb {
+    border-radius: 10px;
+    background: var(--table-border);
+  }
+}
+
 .gray-bg {
   background-color: rgba(#000, 0.05);
 }
@@ -92,14 +104,20 @@ button {
   text-align: center !important;
 }
 
-::-webkit-scrollbar {
-  height: 8px;
-  opacity: 0.4;
-  background: #fff;
-  border-radius: 10px;
+.position-relative {
+  position: relative !important;
+}
 
-  &-thumb {
-    border-radius: 10px;
-    background: var(--table-border);
-  }
+.rounded-gray-btn {
+  color: #000;
+  font-size: min(14px, 0.8em);
+  font-weight: 450;
+  line-height: calc(18 / 16);
+  letter-spacing: 0.9px;
+  text-align: center;
+  text-transform: uppercase;
+
+  padding: 1em calc((27 / 16) * 1em);
+  background: var(--gray);
+  border-radius: 41px;
 }

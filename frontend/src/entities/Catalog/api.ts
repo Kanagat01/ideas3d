@@ -1,4 +1,4 @@
-import { createEffect, createStore } from "effector";
+import { createEffect, createEvent, createStore } from "effector";
 import { API_URL, apiInstance } from "~/shared/apiInstance";
 
 type Catalog = {
@@ -44,3 +44,12 @@ export const $catalog = createStore<Catalog>({
     price: Number(el.price),
   })), // Convert price to number
 }));
+
+const savedCart = sessionStorage.getItem("cart");
+export const setCart = createEvent<CartItem[]>();
+export const $cart = createStore<CartItem[]>(
+  savedCart ? JSON.parse(savedCart) : []
+).on(setCart, (_, state) => {
+  sessionStorage.setItem("cart", JSON.stringify(state));
+  return state;
+});

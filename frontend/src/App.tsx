@@ -16,6 +16,7 @@ import MafPage from "./pages/maf";
 import HousePage from "./pages/house";
 import HelpPage from "./pages/help";
 import PrivacyPolicy from "./pages/privacy_policy";
+import CartPage from "./pages/cart";
 
 const App = () => {
   const public_routes: Array<[string, ReactNode]> = [
@@ -25,6 +26,7 @@ const App = () => {
     [urls.CATALOG_3D, <Catalog3DPage />],
     [urls.HOUSE, <HousePage />],
     [urls.MAF, <MafPage />],
+    [urls.CART, <CartPage />],
     [urls.TECHNOLOGIES, <TechnologiesPage />],
     [urls.MIXTURES, <MixturesPage />],
     [urls.PRINTERS, <PrintersPage />],

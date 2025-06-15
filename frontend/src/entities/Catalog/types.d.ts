@@ -65,3 +65,7 @@ interface House {
   images: HouseImage[];
   floors: Floor[];
 }
+
+type CartItem =
+  | (Maf & { __type: "maf"; amount: number })
+  | (House & { __type: "house"; amount: number });

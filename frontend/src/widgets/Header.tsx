@@ -14,6 +14,7 @@ export function Header() {
             ["3D каталог", Routes.CATALOG_3D],
             ["Технология", Routes.TECHNOLOGIES],
             ["О нас", Routes.ABOUT],
+            ["Корзина", Routes.CART],
             ["Помощь и поддержка", Routes.HELP],
           ].map(([name, link], key) => (
             <li key={key}>

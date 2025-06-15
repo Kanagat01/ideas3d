@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useUnit } from "effector-react";
 import { Navigate, useParams } from "react-router-dom";
 import { BackBtnContainer, Carousel } from "~/widgets";
-import { $catalog, getCatalogFx } from "~/entities/Catalog";
+import { $cart, $catalog, getCatalogFx, setCart } from "~/entities/Catalog";
 import { ModelViewer, Preloader } from "~/shared/ui";
 import Routes from "~/shared/routes";
 
@@ -12,6 +12,20 @@ export default function HousePage() {
   const [isLoading, catalog] = useUnit([getCatalogFx.pending, $catalog]);
   const house = catalog.houses.find((el) => el.id === Number(id));
   const [floorIdx, setFloorIdx] = useState(0);
+
+  const cart = useUnit($cart);
+  const inCart = cart.some(
+    (el) => el.__type === "house" && el.id === house?.id
+  );
+  const handleCartClick = () => {
+    if (inCart) {
+      setCart(
+        cart.filter((el) => !(el.__type === "house" && el.id === house?.id))
+      );
+    } else if (house) {
+      setCart([...cart, { ...house, __type: "house", amount: 1 }]);
+    }
+  };
 
   useEffect(() => {
     if (catalog.houses.length === 0) {
@@ -26,7 +40,15 @@ export default function HousePage() {
     house && (
       <div className="model-page">
         <BackBtnContainer grayBg={false} />
-        <ModelViewer url={house.stl_file} />
+        <div className="position-relative">
+          <ModelViewer url={house.stl_file} />
+          <div className="cart-btn-wrapper">
+            <div className="cart-btn-background"></div>
+            <button className="cart-btn" onClick={handleCartClick}>
+              {inCart ? "Удалить из корзины" : "Добавить в корзину"}
+            </button>
+          </div>
+        </div>
         <div className="gray-bg">
           <div className="table-wrapper">
             <table className="model-table">

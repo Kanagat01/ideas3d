@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useUnit } from "effector-react";
 import { Navigate, useParams } from "react-router-dom";
 import { BackBtnContainer } from "~/widgets";
-import { $catalog, getCatalogFx } from "~/entities/Catalog";
+import { $cart, $catalog, getCatalogFx, setCart } from "~/entities/Catalog";
 import { ModelViewer, Preloader } from "~/shared/ui";
 import Routes from "~/shared/routes";
 
@@ -11,6 +11,16 @@ export default function MafPage() {
   const [triedLoad, setTriedLoad] = useState(false);
   const [isLoading, catalog] = useUnit([getCatalogFx.pending, $catalog]);
   const maf = catalog.mafs.find((el) => el.id === Number(id));
+
+  const cart = useUnit($cart);
+  const inCart = cart.some((el) => el.__type === "maf" && el.id === maf?.id);
+  const handleCartClick = () => {
+    if (inCart) {
+      setCart(cart.filter((el) => !(el.__type === "maf" && el.id === maf?.id)));
+    } else if (maf) {
+      setCart([...cart, { ...maf, __type: "maf", amount: 1 }]);
+    }
+  };
 
   useEffect(() => {
     if (catalog.mafs.length === 0 || !maf) {
@@ -28,7 +38,15 @@ export default function MafPage() {
     maf && (
       <div className="model-page">
         <BackBtnContainer grayBg={false} />
-        <ModelViewer url={maf.stl_file} />
+        <div className="position-relative">
+          <ModelViewer url={maf.stl_file} />
+          <div className="cart-btn-wrapper">
+            <div className="cart-btn-background"></div>
+            <button className="cart-btn" onClick={handleCartClick}>
+              {inCart ? "Удалить из корзины" : "Добавить в корзину"}
+            </button>
+          </div>
+        </div>
         <div className="gray-bg">
           <div className="table-wrapper">
             <table className="model-table">
