@@ -7,6 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get(
     "SECRET_KEY", default='django-insecure-+nh5&*9h5r=$%kv6)_zubv5@#m8k-!pr8j!-k@*i!778%kjq7h')
 
+RUNNING_FROM_DOCKER = bool(os.environ.get('RUNNING_FROM_DOCKER', False))
 DEBUG = bool(os.environ.get("DEBUG", default=1))
 ALLOWED_HOSTS = os.environ.get(
     "DJANGO_ALLOWED_HOSTS", default='localhost 127.0.0.1').split()
@@ -17,7 +18,8 @@ CSRF_TRUSTED_ORIGINS = os.environ.get(
     "DJANGO_CSRF_TRUSTED_ORIGINS", "http://localhost:5173").split()
 
 MANAGER_TG_IDS = os.environ.get("MANAGER_TG_IDS", "").split()
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
+BOT_TOKEN = os.environ.get(
+    "BOT_TOKEN", "7820796823:AAGEqvRuZpT2WEG0vhbOqJm0Ark2T1beIUg")
 
 # Application definition
 
@@ -35,8 +37,20 @@ INSTALLED_APPS = [
     "news",
 ]
 
-USE_X_FORWARDED_HOST = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+if RUNNING_FROM_DOCKER:
+    USE_X_FORWARDED_HOST = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+else:
+    SECURE_SSL_REDIRECT = False
+    USE_X_FORWARDED_HOST = False
+    SECURE_PROXY_SSL_HEADER = None
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,7 +87,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-if bool(os.environ.get('RUNNING_FROM_DOCKER', False)):
+if RUNNING_FROM_DOCKER:
     print("USING POSTGRESQL DATABASE")
     DATABASES = {
         "default": {
@@ -139,7 +153,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Logging
 LOGGING = {}
 
-if os.environ.get('RUNNING_FROM_DOCKER', False):
+if RUNNING_FROM_DOCKER:
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
