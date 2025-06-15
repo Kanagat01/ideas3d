@@ -60,5 +60,9 @@ server {
 
     location /media/ {
         alias /home/app/media/;
+
+        add_header 'Access-Control-Allow-Origin' 'https://ideas3d.ru' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' '*' always;
     }
 }
