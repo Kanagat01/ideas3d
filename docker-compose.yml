@@ -48,12 +48,12 @@ services:
     restart: on-failure
 
   django-qcluster:
-    build: ./django_project
+    build: ./backend
     command: python manage.py qcluster
     networks:
       - back
     volumes:
-      - ./django_project/:/usr/src/app/
+      - ./backend/:/usr/src/app/
     env_file:
       - .env
     depends_on:
