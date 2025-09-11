@@ -17,9 +17,8 @@ CORS_ALLOWED_ORIGINS = os.environ.get(
 CSRF_TRUSTED_ORIGINS = os.environ.get(
     "DJANGO_CSRF_TRUSTED_ORIGINS", "http://localhost:5173").split()
 
-MANAGER_TG_IDS = os.environ.get("MANAGER_TG_IDS", "979107079").split()
-BOT_TOKEN = os.environ.get(
-    "BOT_TOKEN", "8244863989:AAGkU-Lz-RAXR1ajNOnARkXA3dJ3gUrWfQc")
+MANAGER_TG_IDS = os.environ.get("MANAGER_TG_IDS", "5758954001").split()
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 
 # Application definition
 
@@ -101,11 +100,11 @@ if RUNNING_FROM_DOCKER:
     }
 
     print("DEBUG DATABASE SETTINGS:", {
-    "NAME": os.environ.get("POSTGRES_DB"),
-    "USER": os.environ.get("POSTGRES_USER"),
-    "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
-    "HOST": os.environ.get("POSTGRES_HOST"),
-    "PORT": os.environ.get("POSTGRES_PORT"),
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": os.environ.get("POSTGRES_HOST"),
+        "PORT": os.environ.get("POSTGRES_PORT"),
     })
 
 else:
@@ -188,7 +187,7 @@ if RUNNING_FROM_DOCKER:
             'django': {
                 'handlers': ['file'],
                 'level': 'INFO' if DEBUG else 'ERROR',
-                'propagate': True,
+                'propagate': False,
             },
         },
     }

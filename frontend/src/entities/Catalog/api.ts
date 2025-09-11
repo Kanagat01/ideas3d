@@ -1,6 +1,6 @@
 import { createEffect, createEvent, createStore } from "effector";
 import { API_URL, apiInstance } from "~/shared/apiInstance";
-// import { catalog as mockCatalog } from "~/shared/mockData/catalog";
+import { catalog as mockCatalog } from "~/shared/mockData/catalog";
 import type {
   Catalog,
   CartItem,
@@ -11,13 +11,13 @@ import type {
   ImageObj,
 } from "~/entities/Catalog/types";
 
-// const USE_MOCK = false; //false=API, true = fakeData
+const USE_MOCK = false; //false=API, true = fakeData
 
 export const getCatalogFx = createEffect<void, Catalog>(async () => {
-  // if (USE_MOCK) {
-  //   await new Promise((res) => setTimeout(res, 200));
-  //   return mockCatalog;
-  // }
+  if (USE_MOCK) {
+    await new Promise((res) => setTimeout(res, 200));
+    return mockCatalog;
+  }
   const response = await apiInstance.get("api/catalog/");
   return response.data;
 });
