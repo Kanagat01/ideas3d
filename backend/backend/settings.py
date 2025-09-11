@@ -31,14 +31,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     "corsheaders",
+    'django_q',
     "nested_admin",
     "catalog",
     "news",
 ]
-
-# Celery settings
-CELERY_BROKER_URL = "redis://localhost:6379/0"
-CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 
 
 if RUNNING_FROM_DOCKER:
@@ -200,3 +197,19 @@ if RUNNING_FROM_DOCKER:
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+Q_CLUSTER = {
+    'name': 'backend',
+    'workers': 3,
+    'recycle': 500,
+    'timeout': 60,
+    'compress': True,
+    'save_limit': 250,
+    'queue_limit': 500,
+    'cpu_affinity': 1,
+    'label': 'Django Q2',
+    'orm': 'default',
+    'ack_failures': True,
+    'max_attempts': 1,
+    'attempt_count': 1
+}

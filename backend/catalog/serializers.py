@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .tasks import send_application_notification
+from django_q.tasks import async_task
 from .models import *
 
 
@@ -198,9 +198,6 @@ class ApplicationSerializer(serializers.ModelSerializer):
                 except Maf.DoesNotExist:
                     continue
 
-        send_application_notification.apply_async(
-            args=[application.pk],
-            countdown=1,  # можно вообще без задержки
-            task_id=f"application_notify_{application.pk}"
-        )
+        async_task('catalog.tasks.send_application_notification',
+                   application.pk)
         return application
