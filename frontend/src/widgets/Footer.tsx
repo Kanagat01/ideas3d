@@ -18,7 +18,7 @@ export function Footer() {
 const TermsAndInfo = ({ mode }: { mode: string }) => (
   <>
     <div className={`footer__terms footer__terms--${mode}`}>
-      <Link to={Routes.PRIVACY_POLICY}>Пользовательское соглашение</Link>{" "}
+      <Link to={Routes.USER_AGREEMENT}>Пользовательское соглашение</Link>{" "}
       {mode === "desktop" && <span className="footer__terms__divider" />}
       <Link to={Routes.PRIVACY_POLICY}>
         Политика обработки персональных данных

@@ -32,17 +32,6 @@ export default function AboutPage() {
           </div>
           ideas3dbuild@gmail.com
         </a>
-        <a href="tel:+79960382729" className="phone">
-          <div className="icon-wrapper">
-            <img
-              src="/assets/vibrating_phone.svg"
-              alt="phone"
-              width="65%"
-              height="65%"
-            />
-          </div>
-          +7 (996)-038-27-29
-        </a>
       </div>
     </>
   );

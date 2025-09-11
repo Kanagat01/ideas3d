@@ -5,17 +5,13 @@ import Routes from "~/shared/routes";
 
 type CarouselItem = { id: number; title: string; img: string };
 
-export function Carousel({
-  items,
-}: {
-  items: (CarouselItem | { img: string })[];
-}) {
+export function Carousel({ items }: { items: (CarouselItem | { img: string })[] }) {
   return (
     <Swiper
-      effect={"coverflow"}
-      grabCursor={true}
-      centeredSlides={true}
-      slidesPerView={"auto"}
+      effect="coverflow"
+      grabCursor
+      centeredSlides
+      slidesPerView="auto"
       loop={items.length > 4}
       coverflowEffect={{
         rotate: 50,
@@ -24,30 +20,33 @@ export function Carousel({
         modifier: 1,
         slideShadows: false,
       }}
-      pagination={true}
+      pagination
       modules={[EffectCoverflow, Pagination]}
+      className="swiper"
     >
       {items.map((item, key) => (
-        <SwiperSlide key={key}>
-          {"id" in item ? (
-            <CarouselCard {...item} />
-          ) : (
-            <img src={item.img} alt={`carousel-img-${key}`} />
-          )}
+        <SwiperSlide key={key} className="swiper-slide flex justify-center">
+          <div className="carousel__card-wrapper">
+            {"id" in item ? (
+              <Link
+                to={generatePath(Routes.NEWS, { id: item.id.toString() })}
+                className="carousel__card"
+              >
+                <div className="carousel__image-wrapper">
+                  <img src={item.img} alt={item.title} className="carousel__image" />
+                </div>
+                <h4>{item.title}</h4>
+              </Link>
+            ) : (
+              <div className="carousel__card">
+                <div className="carousel__image-wrapper">
+                  <img src={item.img} alt="" className="carousel__image" />
+                </div>
+              </div>
+            )}
+          </div>
         </SwiperSlide>
       ))}
     </Swiper>
-  );
-}
-
-function CarouselCard(props: CarouselItem) {
-  return (
-    <Link
-      to={generatePath(Routes.NEWS, { id: props.id.toString() })}
-      className="carousel__card"
-    >
-      <img src={props.img} alt={props.title} />
-      <h4>{props.title}</h4>
-    </Link>
   );
 }

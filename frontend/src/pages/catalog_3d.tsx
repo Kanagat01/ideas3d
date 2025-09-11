@@ -1,315 +1,85 @@
-import { Modal } from "antd";
+import { useState, useEffect } from "react";
 import { useUnit } from "effector-react";
-import { generatePath, useNavigate } from "react-router-dom";
-import { FormEvent, Fragment, ReactNode, useEffect, useState } from "react";
-import { $catalog, getCatalogFx } from "~/entities/Catalog";
-import {
-  Checkbox,
-  CustomSelect,
-  MultiModelViewer,
-  Preloader,
-  RangeInput,
-} from "~/shared/ui";
-import Routes from "~/shared/routes";
-
-const filtersDefault = {
-  buildingType: "",
-  roomsCnt: new Array<number>(),
-  priceMin: 0,
-  priceMax: 0,
-  totalAreaMin: 0,
-  totalAreaMax: 0,
-  livingAreaMin: 0,
-  livingAreaMax: 0,
-  designer: 0,
-  style: 0,
-  type: 0,
-  status: "",
-};
+import { $catalog, getCatalogFx } from "~/entities/Catalog/api";
+import { filtersDefault } from "~/entities/Catalog/useCatalogFilters";
+import { filterCatalog } from "~/entities/Catalog/catalogFilters";
+import { CatalogFiltersModal } from "~/entities/Catalog/CatalogFiltersModal";
+import { Preloader } from "~/shared/ui";
+import CatalogCard from "~/entities/Catalog/CatalogCard";
+import Pagination from "~/entities/Catalog/Pagination";
 
 export default function Catalog3DPage() {
-  const navigate = useNavigate();
   const [isLoading, catalog] = useUnit([getCatalogFx.pending, $catalog]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [filters, setFilters] = useState<typeof filtersDefault>(filtersDefault);
+
+  const resetFilters = () => setFilters(filtersDefault);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
+
   useEffect(() => {
     getCatalogFx();
-  }, []);
+    setCurrentPage(1);
+  }, [filters]);
 
-  const [show, setShow] = useState(false);
-  const [filteredCatalog, setFilteredCatalog] = useState<{
-    houses: House[];
-    mafs: Maf[];
-  }>(catalog);
+  const { houses, mafs } = filterCatalog(catalog, filters);
 
-  const [filters, setFilters] = useState(filtersDefault);
-  const applyFilters = () => {
-    const filteredHouses = catalog.houses.filter((el) => {
-      return (
-        (filters.buildingType === "" || filters.buildingType === "house") &&
-        (filters.roomsCnt.length === 0 ||
-          filters.roomsCnt.includes(
-            el.floors.reduce((acc, el) => acc + el.rooms.length, 0)
-          )) &&
-        (filters.priceMin === 0 || filters.priceMin <= el.price) &&
-        (filters.priceMax === 0 || filters.priceMax >= el.price) &&
-        (filters.totalAreaMin === 0 || filters.totalAreaMin <= el.total_area) &&
-        (filters.totalAreaMax === 0 || filters.totalAreaMax >= el.total_area) &&
-        (filters.livingAreaMin === 0 ||
-          filters.livingAreaMin <= el.living_area) &&
-        (filters.livingAreaMax === 0 ||
-          filters.livingAreaMax >= el.living_area) &&
-        (filters.designer === 0 || filters.designer === el.designer.id) &&
-        (filters.status === "" || filters.status === el.status)
-      );
-    });
-    const filteredMafs = catalog.mafs.filter((el) => {
-      return (
-        (filters.buildingType === "" || filters.buildingType === "maf") &&
-        (filters.priceMin === 0 || filters.priceMin <= el.price) &&
-        (filters.priceMax === 0 || filters.priceMax >= el.price) &&
-        (filters.designer === 0 || filters.designer === el.designer.id) &&
-        (filters.style === 0 || filters.style === el.style.id) &&
-        (filters.type === 0 || filters.type === el.type.id) &&
-        (filters.status === "" || filters.status === el.status)
-      );
-    });
-    setFilteredCatalog({
-      houses: filteredHouses,
-      mafs: filteredMafs,
-    });
-  };
-  useEffect(() => {
-    applyFilters();
-  }, [catalog]);
-
-  const handleChange = <K extends keyof typeof filters>(
-    name: K,
-    value: (typeof filters)[K]
-  ) => {
-    setFilters((prev) => ({ ...prev, [name]: value }));
-  };
-  const fields = [
-    <CustomSelect
-      label="тип сооружения"
-      value={filters.buildingType}
-      options={[
-        { value: "house", label: "дома" },
-        { value: "maf", label: "малые архитектурные формы" },
-      ]}
-      handleChange={(value) => handleChange("buildingType", value as string)}
-    />,
-    filters.buildingType === "house" && (
-      <Checkbox
-        label="кол-во спален"
-        values={filters.roomsCnt}
-        options={[1, 2, 3, 4, 5]}
-        handleChange={(value) => {
-          let val = Number(value);
-          handleChange(
-            "roomsCnt",
-            filters.roomsCnt.includes(val)
-              ? filters.roomsCnt.filter((el) => el !== val)
-              : [...filters.roomsCnt, val]
-          );
-        }}
-      />
-    ),
-    <RangeInput
-      label="стоимость"
-      minValue={filters.priceMin}
-      maxValue={filters.priceMax}
-      onMinValueChange={(value) => handleChange("priceMin", value)}
-      onMaxValueChange={(value) => handleChange("priceMax", value)}
-    />,
-    filters.buildingType === "house" && (
-      <RangeInput
-        label="общая площадь (м²)"
-        minValue={filters.totalAreaMin}
-        maxValue={filters.totalAreaMax}
-        onMinValueChange={(value) => handleChange("totalAreaMin", value)}
-        onMaxValueChange={(value) => handleChange("totalAreaMax", value)}
-      />
-    ),
-    filters.buildingType === "house" && (
-      <RangeInput
-        label="жилая площадь (м²)"
-        minValue={filters.livingAreaMin}
-        maxValue={filters.livingAreaMax}
-        onMinValueChange={(value) => handleChange("livingAreaMin", value)}
-        onMaxValueChange={(value) => handleChange("livingAreaMax", value)}
-      />
-    ),
-    <CustomSelect
-      label="дизайнер"
-      value={filters.designer}
-      options={catalog.designers.map((el) => ({
-        value: el.id,
-        label: el.name,
-      }))}
-      handleChange={(value) => handleChange("designer", value as number)}
-    />,
-    filters.buildingType === "maf" && (
-      <CustomSelect
-        label="стиль"
-        value={filters.style}
-        options={catalog.styles.map((el) => ({ value: el.id, label: el.name }))}
-        handleChange={(value) => handleChange("style", value as number)}
-      />
-    ),
-    filters.buildingType === "maf" && (
-      <CustomSelect
-        label="тип"
-        value={filters.type}
-        options={catalog.types.map((el) => ({ value: el.id, label: el.name }))}
-        handleChange={(value) => handleChange("type", value as number)}
-      />
-    ),
-    <CustomSelect
-      label="статус"
-      value={filters.status}
-      options={[
-        { value: "RDY", label: "готов к постройке" },
-        { value: "DEV", label: "в разработке" },
-      ]}
-      handleChange={(value) => handleChange("status", value as string)}
-    />,
+  const combinedItems = [
+    ...houses.map((h) => ({ ...h, itemType: "house" as const })),
+    ...mafs.map((m) => ({ ...m, itemType: "maf" as const })),
   ];
 
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setFilters(filtersDefault);
-    applyFilters();
-    setShow(false);
-  };
-  const onReset = (e: FormEvent) => {
-    e.preventDefault();
-    applyFilters();
-    setShow(false);
-  };
+  const totalPages = Math.ceil(combinedItems.length / itemsPerPage);
+  const startIdx = (currentPage - 1) * itemsPerPage;
+  const paginatedItems = combinedItems.slice(startIdx, startIdx + itemsPerPage);
 
   if (isLoading) return <Preloader />;
   return (
     <div className="catalog">
-      {/* <div className="catalog-actions">
+      <div className="catalog-actions">
         <button>По коллекциям</button>
         <span className="catalog-actions__divider"></span>
-        <button>Все изделия</button>
-      </div> */}
-      <button className="filter-btn" onClick={() => setShow(true)}>
+        <button
+          onClick={() => {
+            setFilters(filtersDefault);
+          }}
+        >
+          Все изделия
+        </button>
+      </div>
+      <button className="filter-btn" onClick={() => setModalOpen(true)}>
         Фильтр
       </button>
-      <Modal
-        open={show}
-        onCancel={() => setShow(false)}
-        footer={null}
-        centered
-        destroyOnHidden
-        maskClosable={true}
-        styles={{
-          content: {
-            padding: "25px 15px",
-            width: "min(90%, 380px)",
-            backgroundColor: "var(--dialog-bg)",
-            justifySelf: "center",
-          },
-          body: {
-            background: "var(--dialog-bg)",
-            border: "1px solid transparent",
-            borderRadius: "3rem",
-          },
-        }}
-      >
-        <form onSubmit={onSubmit} onReset={onReset}>
-          <div className="filter__title">фильтр</div>
-          <div className="filter__divider" />
-          <div className="filter__content">
-            {fields.map((el, idx) => (
-              <Fragment key={idx}>
-                {el}
-                {idx !== fields.length - 1 && (
-                  <div className="filter__divider" />
-                )}
-              </Fragment>
-            ))}
-          </div>
-          <div className="filter__actions">
-            <button type="reset">Очистить</button>
-            <button type="submit">Применить</button>
-          </div>
-        </form>
-      </Modal>
-      <MultiModelViewer
-        models={[
-          ...filteredCatalog.houses.map((el) => ({
-            id: el.id,
-            url: el.stl_file,
-            tooltip: (
-              <CatalogTooltip
-                name={el.name}
-                status={el.status}
-                data={[
-                  `Общая площадь: ${el.total_area} м²`,
-                  `Жилая площадь: ${el.living_area} м²`,
-                  `Кол-во комнат: ${el.floors.reduce(
-                    (acc, el) => acc + el.rooms.length,
-                    0
-                  )}`,
-                  `Кол-во этажей: ${el.floors.length}`,
-                ]}
-              />
-            ),
-            onClick: () =>
-              navigate(generatePath(Routes.HOUSE, { id: `${el.id}` })),
-          })),
-          ...filteredCatalog.mafs.map((el) => ({
-            id: el.id,
-            url: el.stl_file,
-            tooltip: (
-              <CatalogTooltip
-                name={el.name}
-                status={el.status}
-                data={[`Стиль: ${el.style.name}`, `Тип: ${el.type.name}`]}
-              />
-            ),
-            onClick: () =>
-              navigate(generatePath(Routes.MAF, { id: `${el.id}` })),
-          })),
-        ]}
+      <CatalogFiltersModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        filters={filters}
+        setFilters={setFilters}
+        resetFilters={resetFilters}
+        catalog={catalog}
       />
+      <div className="catalog-cards-container">
+        <div className="catalog-cards-grid">
+          {combinedItems.length === 0 ? (
+            <div className="no-results">
+              <div>Ничего не найдено по вашему фильтру.</div>
+              <button className="reset-filters-btn" onClick={resetFilters}>
+                Сбросить фильтр
+              </button>
+            </div>
+          ) : (
+            paginatedItems.map((item) => (
+              <CatalogCard key={item.itemType + item.id} item={item} />
+            ))
+          )}
+        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      </div>
     </div>
   );
 }
-
-const CatalogTooltip = (props: {
-  name: string;
-  status: CatalogObjStatus;
-  data: ReactNode[];
-}) => (
-  <div className="catalog-tooltip">
-    <div>
-      <div className="catalog-tooltip__name">{props.name}</div>
-      <div className="catalog-tooltip__status">
-        {props.status === "DEV" ? (
-          <>
-            <div className="circle red" />в разработке
-          </>
-        ) : (
-          <>
-            <div className="circle green" />
-            готов к постройке
-          </>
-        )}
-      </div>
-    </div>
-    <div className="vertical-divider" />
-    <div className="catalog-tooltip__data">
-      {props.data.map((el, idx) => (
-        <Fragment key={idx}>
-          <span>{el}</span>
-          {idx !== props.data.length - 1 && (
-            <div className="horizontal-divider" />
-          )}
-        </Fragment>
-      ))}
-    </div>
-  </div>
-);

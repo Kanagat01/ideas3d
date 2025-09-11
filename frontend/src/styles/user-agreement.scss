@@ -1,0 +1,58 @@
+@use "utils" as *;
+
+.user-agreement {
+  h3 {
+    font-family: "Inter";
+    font-weight: 600;
+    line-height: 104%;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    padding: 0 vw(145);
+    margin: 1em 0 0;
+
+    @include mediaMaxW(414px) {
+      font-size: 1.75em;
+    }
+  }
+
+  p {
+    margin: 1.2em vw(230) 2.9em;
+    color: #141514;
+    font-size: 1.2em;
+    font-family: "Inter";
+    line-height: calc(46 / 24);
+    letter-spacing: 1%;
+    text-transform: uppercase;
+
+    .text-transform-none {
+      text-transform: none;
+    }
+
+    .bold {
+      font-weight: 600;
+      line-height: calc(60 / 24);
+      text-transform: none;
+    }
+  }
+
+  .list {
+    list-style-type: none;
+    list-style-position: inside;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .list .item {
+    position: relative;
+    padding-left: 0.8em;
+  }
+
+  .list .item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: -0.25em;
+    font-size: 1.5em;
+    color: inherit;
+  }
+}

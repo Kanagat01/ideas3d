@@ -49,11 +49,12 @@
 .contacts-block {
   display: flex;
   align-items: center;
+  justify-content: center; // добавлено для центрирования по горизонтали
   flex-wrap: wrap;
   column-gap: vw(50);
   row-gap: 0.5em;
-  padding: 0 vw(150);
-  margin: 0 vw(208) 2em;
+  padding: 0; // убрал vw padding, чтобы не сдвигать
+  margin: 0 auto; // центрирует блок по горизонтали, если есть ширина
 
   @include mediaMaxW(414px) {
     padding: 0;
@@ -92,3 +93,4 @@
     }
   }
 }
+

@@ -153,7 +153,8 @@ export function CustomSelect(props: {
       <Select
         value={props.options.find((option) => option.value === props.value)}
         options={props.options}
-        onChange={(option) => props.handleChange(option?.value ?? props.value)}
+        // onChange={(option) => props.handleChange(option?.value ?? props.value)}
+        onChange={(option) => props.handleChange(option ? option.value : "")}
         placeholder="Не выбрано"
         noOptionsMessage={() => "Ничего не найдено"}
         styles={selectStyles}
