@@ -1,6 +1,6 @@
 import { Checkbox, CustomSelect, RangeInput } from "~/shared/ui";
-import type { Catalog } from "~/entities/Catalog/types";
-import { filtersDefault } from "~/entities/Catalog/useCatalogFilters";
+import type { Catalog } from "./types";
+import { filtersDefault } from "./useCatalogFilters";
 
 type Filters = typeof filtersDefault;
 

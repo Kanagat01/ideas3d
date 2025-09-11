@@ -5,14 +5,14 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import { BackBtnContainer } from "~/widgets";
-import { ModelViewer, Preloader } from "~/shared/ui";
-import Routes from "~/shared/routes";
-import { API_URL } from "~/shared/apiInstance";
-import { useCatalogItem } from "~/shared/hooks/useCatalogItem";
-import type { ViewerCoordinates, Maf, House } from "~/entities/Catalog/types";
-import { getCatalogFx } from "~/entities/Catalog";
 import toast from "react-hot-toast";
+import { BackBtnContainer } from "~/widgets";
+import { getCatalogFx } from "~/entities/Catalog";
+import type { ViewerCoordinates, Maf, House } from "~/entities/Catalog";
+import { ModelViewer, Preloader } from "~/shared/ui";
+import { useCatalogItem } from "~/shared/hooks";
+import { API_URL } from "~/shared/apiInstance";
+import Routes from "~/shared/routes";
 
 type ModelViewerRef = {
   getCoordinates: () => ViewerCoordinates;

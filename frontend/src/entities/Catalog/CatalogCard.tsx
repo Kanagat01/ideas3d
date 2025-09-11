@@ -22,7 +22,7 @@ interface CatalogCardProps {
   item: CatalogCardItem;
 }
 
-export default function CatalogCard({ item }: CatalogCardProps) {
+export function CatalogCard({ item }: CatalogCardProps) {
   const [showDetails, setShowDetails] = useState(false);
   const navigate = useNavigate();
   const isHouse = item.itemType === "house";

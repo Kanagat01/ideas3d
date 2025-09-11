@@ -9,7 +9,7 @@ import type {
   Floor,
   Room,
   ImageObj,
-} from "~/entities/Catalog/types";
+} from "./types";
 
 const USE_MOCK = false; //false=API, true = fakeData
 

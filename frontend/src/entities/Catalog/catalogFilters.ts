@@ -1,4 +1,4 @@
-import type { Catalog, House, Maf } from "~/entities/Catalog/types";
+import type { Catalog, House, Maf } from "./types";
 import { filtersDefault } from "./useCatalogFilters";
 
 export function filterCatalog(

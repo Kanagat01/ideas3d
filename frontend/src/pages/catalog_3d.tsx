@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { useUnit } from "effector-react";
-import { $catalog, getCatalogFx } from "~/entities/Catalog/api";
-import { filtersDefault } from "~/entities/Catalog/useCatalogFilters";
-import { filterCatalog } from "~/entities/Catalog/catalogFilters";
-import { CatalogFiltersModal } from "~/entities/Catalog/CatalogFiltersModal";
+import {
+  $catalog,
+  getCatalogFx,
+  filtersDefault,
+  filterCatalog,
+  CatalogFiltersModal,
+  CatalogCard,
+  Pagination,
+} from "~/entities/Catalog";
 import { Preloader } from "~/shared/ui";
-import CatalogCard from "~/entities/Catalog/CatalogCard";
-import Pagination from "~/entities/Catalog/Pagination";
 
 export default function Catalog3DPage() {
   const [isLoading, catalog] = useUnit([getCatalogFx.pending, $catalog]);

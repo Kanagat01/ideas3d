@@ -1,5 +1,5 @@
 import { Fragment, ReactNode } from "react";
-import type { CatalogObjStatus } from "~/entities/Catalog/types";
+import type { CatalogObjStatus } from "./types";
 
 type Props = {
   name: string;

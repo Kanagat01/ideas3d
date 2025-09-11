@@ -1,14 +1,11 @@
 import { useUnit } from "effector-react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams, useLocation } from "react-router-dom";
 import { BackBtnContainer, Carousel } from "~/widgets";
-import { $cart, setCart } from "~/entities/Catalog";
+import { $cart, setCart, Maf, ViewerCoordinates } from "~/entities/Catalog";
 import { ModelViewer, Preloader } from "~/shared/ui";
-import Routes from "~/shared/routes";
+import { useCatalogItem } from "~/shared/hooks";
 import { API_URL } from "~/shared/apiInstance";
-import { useCatalogItem } from "~/shared/hooks/useCatalogItem";
-import { Maf } from "~/entities/Catalog/types";
-import { useLocation } from "react-router-dom";
-import type { ViewerCoordinates } from "~/entities/Catalog/types";
+import Routes from "~/shared/routes";
 
 type LocationState = {
   stl_coordinates?: ViewerCoordinates;

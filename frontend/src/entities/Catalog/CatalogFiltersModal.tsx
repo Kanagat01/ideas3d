@@ -1,8 +1,8 @@
-import { FC, useState, useEffect } from "react";
 import { Modal } from "antd";
-import { CatalogFilterFields } from "~/entities/Catalog/CatalogFilterFields";
-import type { Catalog } from "~/entities/Catalog/types";
-import { filtersDefault } from "~/entities/Catalog/useCatalogFilters";
+import { FC, useState, useEffect } from "react";
+import { CatalogFilterFields } from "./CatalogFilterFields";
+import { filtersDefault } from "./useCatalogFilters";
+import type { Catalog } from "./types";
 
 type Filters = typeof filtersDefault;
 

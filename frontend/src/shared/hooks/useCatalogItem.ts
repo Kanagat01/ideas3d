@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useUnit } from "effector-react";
 import { $catalog, getCatalogFx } from "~/entities/Catalog";
-import type { Maf, House } from "~/entities/Catalog/types";
+import type { Maf, House } from "~/entities/Catalog";
 
 type CatalogType = "maf" | "house";
 
