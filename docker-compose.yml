@@ -11,6 +11,16 @@ services:
     ports:
       - "5432:5432"
 
+  redis:
+    image: redis
+    init: true
+    networks:
+      - back
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
+
   django_project:
     build: ./backend
     command: >
@@ -46,6 +56,22 @@ services:
     depends_on:
       - db
     restart: on-failure
+
+  celery_worker:
+    build: ./backend
+    command: celery -A backend worker -l info
+    networks:
+      - back
+    volumes:
+      - ./backend/:/usr/src/app/
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+      - django_project
+    restart: on-failure
+
   react_app:
     build: ./frontend
     networks:

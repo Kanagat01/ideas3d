@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .tasks import send_application_notification
 from .models import *
 
 
@@ -34,22 +35,27 @@ class HouseFileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HouseFile
-        fields = ["id", "original_filename", "mime_type", "uploaded_at", "download_url"]
+        fields = ["id", "original_filename",
+                  "mime_type", "uploaded_at", "download_url"]
+
     def validate(self, data):
-            # Ensure the file name ends with .pdf (case-insensitive)
-            filename = data.get("original_filename", "")
-            if not filename.lower().endswith(".pdf"):
-                raise serializers.ValidationError("Only PDF files are allowed (filename must end with .pdf).")
-            # Ensure the mime type is correct
-            mime = data.get("mime_type", "")
-            if mime and mime != "application/pdf":
-                raise serializers.ValidationError("Mime type must be application/pdf.")
-            return data
+        # Ensure the file name ends with .pdf (case-insensitive)
+        filename = data.get("original_filename", "")
+        if not filename.lower().endswith(".pdf"):
+            raise serializers.ValidationError(
+                "Only PDF files are allowed (filename must end with .pdf).")
+        # Ensure the mime type is correct
+        mime = data.get("mime_type", "")
+        if mime and mime != "application/pdf":
+            raise serializers.ValidationError(
+                "Mime type must be application/pdf.")
+        return data
 
     def get_download_url(self, obj):
         from urllib.parse import quote
         filename = obj.original_filename or "file.pdf"
-        ascii_filename = filename.encode('ascii', 'ignore').decode('ascii') or "file.pdf"
+        ascii_filename = filename.encode(
+            'ascii', 'ignore').decode('ascii') or "file.pdf"
         utf8_filename = quote(filename)
         return f"https://yourapi.com/api/house-files/{obj.pk}/download/?filename={utf8_filename}"
     # def get_download_url(self, obj):
@@ -66,17 +72,20 @@ class HouseSerializer(serializers.ModelSerializer):
     class Meta:
         model = House
         fields = '__all__'
-        read_only_fields = ['images', 'floors', 'designer', 'files', 'created_at', 'updated_at']
+        read_only_fields = ['images', 'floors', 'designer',
+                            'files', 'created_at', 'updated_at']
 
     def get_stl_file(self, obj):
         if obj.stl_file:
             return obj.stl_file.url
         return None
 
+
 class HouseCoordsUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = House
         fields = ["stl_coordinates"]
+
 
 class MafStyleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -89,26 +98,31 @@ class MafTypeSerializer(serializers.ModelSerializer):
         model = MafType
         fields = '__all__'
 
+
 class MafFileSerializer(serializers.ModelSerializer):
     download_url = serializers.SerializerMethodField()
 
     class Meta:
         model = MafFile
-        fields = ["id", "original_filename", "mime_type", "uploaded_at", "download_url"]
+        fields = ["id", "original_filename",
+                  "mime_type", "uploaded_at", "download_url"]
 
     def validate(self, data):
         filename = data.get("original_filename", "")
         if not filename.lower().endswith(".pdf"):
-            raise serializers.ValidationError("Only PDF files are allowed (filename must end with .pdf).")
+            raise serializers.ValidationError(
+                "Only PDF files are allowed (filename must end with .pdf).")
         mime = data.get("mime_type", "")
         if mime and mime != "application/pdf":
-            raise serializers.ValidationError("Mime type must be application/pdf.")
+            raise serializers.ValidationError(
+                "Mime type must be application/pdf.")
         return data
 
     def get_download_url(self, obj):
         from urllib.parse import quote
         filename = obj.original_filename or "file.pdf"
-        ascii_filename = filename.encode('ascii', 'ignore').decode('ascii') or "file.pdf"
+        ascii_filename = filename.encode(
+            'ascii', 'ignore').decode('ascii') or "file.pdf"
         utf8_filename = quote(filename)
         return f"https://yourapi.com/api/maf-files/{obj.pk}/download/?filename={utf8_filename}"
 
@@ -117,6 +131,7 @@ class MafImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = MafImage
         fields = '__all__'
+
 
 class MafSerializer(serializers.ModelSerializer):
     designer = DesignerSerializer(read_only=True)
@@ -129,12 +144,14 @@ class MafSerializer(serializers.ModelSerializer):
     class Meta:
         model = Maf
         fields = '__all__'
-        read_only_fields = ['designer', 'style', 'type', 'images', 'images', 'files', 'created_at', 'updated_at']
+        read_only_fields = ['designer', 'style', 'type',
+                            'images', 'images', 'files', 'created_at', 'updated_at']
 
     def get_stl_file(self, obj):
         if obj.stl_file:
             return obj.stl_file.url
         return None
+
 
 class MafCoordsUpdateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -181,5 +198,9 @@ class ApplicationSerializer(serializers.ModelSerializer):
                 except Maf.DoesNotExist:
                     continue
 
+        send_application_notification.apply_async(
+            args=[application.pk],
+            countdown=1,  # можно вообще без задержки
+            task_id=f"application_notify_{application.pk}"
+        )
         return application
-

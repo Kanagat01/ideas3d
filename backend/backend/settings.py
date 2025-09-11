@@ -36,6 +36,10 @@ INSTALLED_APPS = [
     "news",
 ]
 
+# Celery settings
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+
 
 if RUNNING_FROM_DOCKER:
     USE_X_FORWARDED_HOST = True

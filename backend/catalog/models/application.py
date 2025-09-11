@@ -2,12 +2,6 @@ from django.db import models
 from .house import House
 from .maf import Maf
 
-from asgiref.sync import async_to_sync
-from backend.bot_utils import send_message
-from tgbot.text import get_application_text
-from tgbot.keyboards import get_status_btn
-from tgbot.config import MANAGER_IDS
-
 
 class Application(models.Model):
     full_name = models.CharField(max_length=200, verbose_name="Имя заказчика")
@@ -28,15 +22,6 @@ class Application(models.Model):
         verbose_name = "Заявка"
         verbose_name_plural = "Заявки"
         ordering = ['created_at']
-
-    def save(self, *args, **kwargs):
-        is_new = self.pk is None
-        super().save(*args, **kwargs)
-        if is_new:
-            msg = async_to_sync(get_application_text)(self)
-            kb = get_status_btn(self.pk, self.is_processed)
-            for chat_id in MANAGER_IDS:
-                send_message(chat_id, msg, kb)
 
 
 class ApplicationHouse(models.Model):
