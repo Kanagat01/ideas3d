@@ -187,7 +187,7 @@ if RUNNING_FROM_DOCKER:
             'django': {
                 'handlers': ['file'],
                 'level': 'INFO' if DEBUG else 'ERROR',
-                'propagate': False,
+                'propagate': True,
             },
         },
     }
