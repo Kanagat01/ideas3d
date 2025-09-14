@@ -18,4 +18,6 @@ def send_application_notification(application_id):
         for chat_id in MANAGER_IDS:
             await bot.send_message(chat_id, msg, reply_markup=kb)
 
-    asyncio.run(_send())
+    loop = asyncio.get_event_loop()
+    task = loop.create_task(_send())
+    loop.run_until_complete(task)
